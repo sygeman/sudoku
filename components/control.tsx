@@ -10,7 +10,7 @@ export const Control = ({
     payload:
       | {
           type: "number";
-          value: number;
+          value: string;
         }
       | { type: "remove" }
   ) => void;
@@ -19,7 +19,7 @@ export const Control = ({
     {x9Array.map((_value, index) => (
       <ControlButton
         key={index}
-        onClick={() => onAction({ type: "number", value: index + 1 })}
+        onClick={() => onAction({ type: "number", value: `${index + 1}` })}
       >
         {index + 1}
       </ControlButton>

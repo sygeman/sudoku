@@ -1,7 +1,7 @@
 import { Control } from "./control";
 import { X3Grid } from "./x3-grid";
 import { Cell } from "./cell";
-import { useSudoku } from "../utils/use-sudoku";
+import { useSudoku } from "../hooks/use-sudoku";
 
 export const Game = () => {
   const { getValue, isSelected, setSelected, setValueSelected } = useSudoku();
@@ -45,3 +45,5 @@ export const Game = () => {
     </div>
   );
 };
+
+export default Game;

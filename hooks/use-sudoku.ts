@@ -1,9 +1,13 @@
 import { useState } from "react";
-import { generateMatrix } from "./generate-matrix";
+import { DIFFICULTY } from "../constants";
+import { boardToGrid } from "../libs/convert/board-to-grid";
+import { generate } from "../libs/generate";
 
 export const useSudoku = () => {
   const [selected, setSelected] = useState<[number, number]>([0, 0]);
-  const [matrix, setMatrix] = useState<(number | null)[][]>(generateMatrix());
+  const [matrix, setMatrix] = useState<(string | null)[][]>(
+    boardToGrid(generate(DIFFICULTY.hard))
+  );
 
   const isSelected = (rowIndex: number, cellIndex: number) =>
     selected[0] === rowIndex && selected[1] === cellIndex;
@@ -14,19 +18,17 @@ export const useSudoku = () => {
   const setValue = (
     rowIndex: number,
     cellIndex: number,
-    value: number | null
+    value: string | null
   ) => {
     setMatrix((m) =>
       m.map((row, rI) => {
         if (rI !== rowIndex) return row;
-        return row.map((cell, cI) => {
-          return cI !== cellIndex ? cell : value;
-        });
+        return row.map((cell, cI) => (cI !== cellIndex ? cell : value));
       })
     );
   };
 
-  const setValueSelected = (value: number | null) => {
+  const setValueSelected = (value: string | null) => {
     setValue(selected[0], selected[1], value);
   };
 
