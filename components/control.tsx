@@ -6,14 +6,17 @@ const x9Array = [...new Array(9)];
 
 export const Control = ({
   onAction,
+  includesCount,
 }: {
   onAction: (payload: { type: string; value: string }) => void;
+  includesCount: { [key: string]: number };
 }) => (
   <>
     <div className="flex flex-wrap gap-1 w-full justify-center">
       {x9Array.map((_value, index) => (
         <ControlButton
           key={index}
+          disabled={includesCount[index + 1] === 9}
           onClick={() => onAction({ type: "number", value: `${index + 1}` })}
         >
           {index + 1}

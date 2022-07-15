@@ -5,6 +5,7 @@ import { useSudoku } from "../hooks/use-sudoku";
 
 export const Game = () => {
   const {
+    includesCount,
     getValue,
     isSelected,
     setSelected,
@@ -45,7 +46,10 @@ export const Game = () => {
       />
 
       <div className="mt-4">
-        <Control onAction={(payload) => setValueSelected(payload.value)} />
+        <Control
+          includesCount={includesCount}
+          onAction={(payload) => setValueSelected(payload.value)}
+        />
       </div>
     </div>
   );

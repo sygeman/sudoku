@@ -1,13 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DIFFICULTY } from "../constants";
 import { boardToGrid } from "../libs/convert/board-to-grid";
+import { boardToString } from "../libs/convert/board-to-string";
 import { generate } from "../libs/generate";
+import { getIncludesCount } from "../libs/get-includes-count";
 
 export const useSudoku = () => {
   const [selected, setSelected] = useState<[number, number]>([0, 0]);
+  const [includesCount, setIncludesCount] = useState<{ [key: string]: number }>(
+    {}
+  );
   const [matrix, setMatrix] = useState<string[][]>(
     boardToGrid(generate(DIFFICULTY.easy))
   );
+
+  const board = boardToString(matrix);
+
+  useEffect(() => {
+    console.log(board);
+    setIncludesCount(getIncludesCount(board));
+  }, [board]);
 
   const getValue = (rowIndex: number, cellIndex: number) =>
     matrix[rowIndex][cellIndex];
@@ -38,6 +50,7 @@ export const useSudoku = () => {
   };
 
   return {
+    includesCount,
     getValue,
     isSelected,
     isHighlightBackground,
