@@ -11,7 +11,7 @@ export const ControlButton = ({
   <button
     className={clsx(
       "h-8 w-8 flex items-center justify-center rounded",
-      "bg-slate-800 text-gray-400 font-medium"
+      "bg-slate-800 text-gray-400 font-medium font-xl"
     )}
     onClick={onClick}
   >

@@ -6,14 +6,23 @@ import { generate } from "../libs/generate";
 export const useSudoku = () => {
   const [selected, setSelected] = useState<[number, number]>([0, 0]);
   const [matrix, setMatrix] = useState<(string | null)[][]>(
-    boardToGrid(generate(DIFFICULTY.hard))
+    boardToGrid(generate(DIFFICULTY.easy))
   );
+
+  const getValue = (rowIndex: number, cellIndex: number) =>
+    matrix[rowIndex][cellIndex];
 
   const isSelected = (rowIndex: number, cellIndex: number) =>
     selected[0] === rowIndex && selected[1] === cellIndex;
 
-  const getValue = (rowIndex: number, cellIndex: number) =>
-    matrix[rowIndex][cellIndex];
+  const isHighlightBackground = (rowIndex: number, cellIndex: number) =>
+    selected[0] === rowIndex || selected[1] === cellIndex;
+
+  const isHighlightText = (rowIndex: number, cellIndex: number) => {
+    const selectedValue = getValue(selected[0], selected[1]);
+    const currentValue = getValue(rowIndex, cellIndex);
+    return !!(selectedValue && selectedValue === currentValue);
+  };
 
   const setValue = (
     rowIndex: number,
@@ -35,6 +44,8 @@ export const useSudoku = () => {
   return {
     getValue,
     isSelected,
+    isHighlightBackground,
+    isHighlightText,
     setSelected,
     setValueSelected,
   };

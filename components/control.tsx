@@ -15,7 +15,7 @@ export const Control = ({
       | { type: "remove" }
   ) => void;
 }) => (
-  <div className="flex gap-1 w-full justify-center">
+  <div className="flex flex-wrap gap-3 w-full justify-center">
     {x9Array.map((_value, index) => (
       <ControlButton
         key={index}
