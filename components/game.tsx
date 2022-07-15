@@ -34,8 +34,8 @@ export const Game = () => {
                 <Cell
                   value={value}
                   selected={cellSelected}
-                  highlightBackground={cellHighlightBackground}
-                  highlightText={cellHighlightText}
+                  highlightLine={cellHighlightBackground}
+                  highlightSame={cellHighlightText}
                   onClick={() => setSelected([rowIndex, cellIndex])}
                 />
               );
