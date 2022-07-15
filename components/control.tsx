@@ -7,14 +7,7 @@ const x9Array = [...new Array(9)];
 export const Control = ({
   onAction,
 }: {
-  onAction: (
-    payload:
-      | {
-          type: "number";
-          value: string;
-        }
-      | { type: "remove" }
-  ) => void;
+  onAction: (payload: { type: string; value: string }) => void;
 }) => (
   <>
     <div className="flex flex-wrap gap-1 w-full justify-center">
@@ -34,7 +27,7 @@ export const Control = ({
           "bg-slate-800/50 text-gray-400 font-medium uppercase text-sm",
           "disabled:opacity-20"
         )}
-        onClick={() => onAction({ type: "remove" })}
+        onClick={() => onAction({ type: "remove", value: "." })}
       >
         Erase
       </button>

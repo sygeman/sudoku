@@ -7,7 +7,7 @@ export const Cell = ({
   highlightSame,
   onClick,
 }: {
-  value: number | null | string;
+  value: string;
   selected?: boolean;
   highlightLine?: boolean;
   highlightSame?: boolean;

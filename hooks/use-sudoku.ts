@@ -5,7 +5,7 @@ import { generate } from "../libs/generate";
 
 export const useSudoku = () => {
   const [selected, setSelected] = useState<[number, number]>([0, 0]);
-  const [matrix, setMatrix] = useState<(string | null)[][]>(
+  const [matrix, setMatrix] = useState<string[][]>(
     boardToGrid(generate(DIFFICULTY.easy))
   );
 
@@ -24,11 +24,7 @@ export const useSudoku = () => {
     return !!(selectedValue && selectedValue === currentValue);
   };
 
-  const setValue = (
-    rowIndex: number,
-    cellIndex: number,
-    value: string | null
-  ) => {
+  const setValue = (rowIndex: number, cellIndex: number, value: string) => {
     setMatrix((m) =>
       m.map((row, rI) => {
         if (rI !== rowIndex) return row;
@@ -37,7 +33,7 @@ export const useSudoku = () => {
     );
   };
 
-  const setValueSelected = (value: string | null) => {
+  const setValueSelected = (value: string) => {
     setValue(selected[0], selected[1], value);
   };
 

@@ -32,7 +32,7 @@ export const Game = () => {
 
               return (
                 <Cell
-                  value={value}
+                  value={value === "." ? "" : value}
                   selected={cellSelected}
                   highlightLine={cellHighlightBackground}
                   highlightSame={cellHighlightText}
@@ -45,16 +45,7 @@ export const Game = () => {
       />
 
       <div className="mt-4">
-        <Control
-          onAction={(payload) => {
-            switch (payload.type) {
-              case "number":
-                return setValueSelected(payload.value);
-              case "remove":
-                return setValueSelected(null);
-            }
-          }}
-        />
+        <Control onAction={(payload) => setValueSelected(payload.value)} />
       </div>
     </div>
   );
