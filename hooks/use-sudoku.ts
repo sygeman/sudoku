@@ -27,13 +27,13 @@ export const useSudoku = () => {
   const isSelected = (rowIndex: number, cellIndex: number) =>
     selected[0] === rowIndex && selected[1] === cellIndex;
 
-  const isHighlightBackground = (rowIndex: number, cellIndex: number) =>
+  const isHighlightLine = (rowIndex: number, cellIndex: number) =>
     selected[0] === rowIndex || selected[1] === cellIndex;
 
-  const isHighlightText = (rowIndex: number, cellIndex: number) => {
+  const isHighlightSame = (rowIndex: number, cellIndex: number) => {
     const selectedValue = getValue(selected[0], selected[1]);
     const currentValue = getValue(rowIndex, cellIndex);
-    return !!(selectedValue && selectedValue === currentValue);
+    return !!(selectedValue !== "." && selectedValue === currentValue);
   };
 
   const setValue = (rowIndex: number, cellIndex: number, value: string) => {
@@ -53,8 +53,8 @@ export const useSudoku = () => {
     includesCount,
     getValue,
     isSelected,
-    isHighlightBackground,
-    isHighlightText,
+    isHighlightLine,
+    isHighlightSame,
     setSelected,
     setValueSelected,
   };
