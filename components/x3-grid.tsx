@@ -10,7 +10,7 @@ export const X3Grid = ({
   renderCell: (rowIndex: number, cellIndex: number) => React.ReactNode;
   gap?: 1 | 2;
 }) => (
-  <div className={clsx("grid grid-cols-3", gap === 1 ? "gap-1" : "gap-2")}>
+  <div className={clsx("grid grid-cols-3", gap === 1 ? "gap-0.5" : "gap-1.5")}>
     {x3Array.map((_row, x3RowIndex) =>
       x3Array.map((_cell, x3CellIndex) => (
         <React.Fragment key={`${x3RowIndex}-${x3CellIndex}`}>
