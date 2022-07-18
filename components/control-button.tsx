@@ -12,7 +12,7 @@ export const ControlButton = ({
 }) => (
   <button
     className={clsx(
-      "h-8 w-8 flex items-center justify-center rounded",
+      "h-8 w-8 flex items-center justify-center rounded relative",
       "bg-slate-800/50 text-gray-400 font-medium text-xl",
       "disabled:opacity-20"
     )}

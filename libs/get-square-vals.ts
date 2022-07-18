@@ -6,7 +6,7 @@ export function getSquareVals(board: string) {
 
   // Make sure `board` is a string of length 81
   if (board.length != SQUARES.length) {
-    throw "Board/squares length mismatch.";
+    console.error("Board/squares length mismatch.");
   } else {
     for (let i = 0; i < SQUARES.length; i++) {
       squaresValsMap[SQUARES[i]] = board[i];

@@ -1,18 +1,13 @@
 import { Control } from "./control";
 import { X3Grid } from "./x3-grid";
 import { Cell } from "./cell";
-import { useSudoku } from "../hooks/use-sudoku";
+import { observer } from "mobx-react-lite";
+import { sudoku } from "../stores/sudoku";
+import { CellCandidates } from "./cell-candidates";
+import { ROWS } from "../constants";
 
-export const Game = () => {
-  const {
-    includesCount,
-    getValue,
-    isSelected,
-    setSelected,
-    isHighlightLine,
-    isHighlightSame,
-    setValueSelected,
-  } = useSudoku();
+export const Game = observer(() => {
+  const { boardAll } = sudoku;
 
   return (
     <div className="w-80 scale-150">
@@ -23,10 +18,27 @@ export const Game = () => {
             renderCell={(innerRowIndex, innerCellIndex) => {
               const rowIndex = innerRowIndex + mainRowIndex * 3;
               const cellIndex = innerCellIndex + mainCellIndex * 3;
-              const cellSelected = isSelected(rowIndex, cellIndex);
-              const cellHighlightLine = isHighlightLine(rowIndex, cellIndex);
-              const cellHighlightSame = isHighlightSame(rowIndex, cellIndex);
-              const value = getValue(rowIndex, cellIndex);
+              const id = `${ROWS[rowIndex]}${cellIndex + 1}`;
+              const cellData = boardAll[id];
+
+              const cellSelected = cellData.selected;
+              const cellHighlightLine = cellData.selectedLine;
+              const cellHighlightSame = cellData.selectedSame;
+              const value = cellData.value;
+
+              if (value === ".") {
+                const candidates = cellData.candidates.join(" ");
+
+                return (
+                  <CellCandidates
+                    candidates={candidates}
+                    selected={cellSelected}
+                    highlightLine={cellHighlightLine}
+                    highlightSame={cellHighlightSame}
+                    onClick={() => sudoku.select(id)}
+                  />
+                );
+              }
 
               return (
                 <Cell
@@ -34,7 +46,8 @@ export const Game = () => {
                   selected={cellSelected}
                   highlightLine={cellHighlightLine}
                   highlightSame={cellHighlightSame}
-                  onClick={() => setSelected([rowIndex, cellIndex])}
+                  notProtected={!cellData.protected}
+                  onClick={() => sudoku.select(id)}
                 />
               );
             }}
@@ -43,13 +56,10 @@ export const Game = () => {
       />
 
       <div className="mt-4">
-        <Control
-          includesCount={includesCount}
-          onAction={(payload) => setValueSelected(payload.value)}
-        />
+        <Control />
       </div>
     </div>
   );
-};
+});
 
 export default Game;

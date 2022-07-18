@@ -6,8 +6,8 @@ import { assign } from "./assign";
 export function getCandidates(board: string) {
   validate(board);
 
-  const candidateMap: { [key: string]: string } = {};
   const squaresValuesMap = getSquareVals(board);
+  const candidateMap: { [key: string]: string } = {};
 
   // Start by assigning every digit as a candidate to every square
   for (let si in SQUARES) {

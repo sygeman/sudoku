@@ -1,25 +1,22 @@
 import clsx from "clsx";
 
-export const Cell = ({
-  value,
+export const CellCandidates = ({
+  candidates,
   selected,
   highlightLine,
   highlightSame,
-  notProtected,
   onClick,
 }: {
-  value: string;
+  candidates: string;
   selected?: boolean;
   highlightLine?: boolean;
   highlightSame?: boolean;
-  notProtected?: boolean;
   onClick?: () => void;
 }) => (
   <button
     className={clsx(
-      "flex justify-center items-center h-8 w-8 cursor-pointer rounded-sm",
-      "font-medium text-xl text-white/50",
-      notProtected && !selected ? "text-indigo-400" : "text-white/50",
+      "flex flex-wrap justify-center items-center h-8 w-8 cursor-pointer rounded-sm",
+      "font-medium text-white/30",
       selected
         ? "bg-indigo-900"
         : highlightSame
@@ -30,6 +27,6 @@ export const Cell = ({
     )}
     onClick={() => onClick && onClick()}
   >
-    {value}
+    <div className="text-xs scale-90">{candidates}</div>
   </button>
 );

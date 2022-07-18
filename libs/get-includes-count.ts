@@ -5,7 +5,6 @@ export function getIncludesCount(board: string) {
     const v = `${i + 1}`;
     const count = (board.match(new RegExp(`${i + 1}`, "g")) || []).length;
     numIncludeCount[v] = count;
-    console.log(`${v}:${count}`);
   });
 
   return numIncludeCount;
