@@ -143,7 +143,9 @@ export class Sudoku {
       })
       .join("");
 
-    this.prevSetValuePayload = { id, value };
+    if (value !== this.BLANK_CHAR) {
+      this.prevSetValuePayload = { id, value };
+    }
 
     return true;
   }
@@ -161,7 +163,6 @@ export class Sudoku {
     const board = generate();
     this.board = board;
     this.initBoard = board;
-    this.solve();
   }
 
   solveNext() {
@@ -196,7 +197,6 @@ export class Sudoku {
         const res = this.solveNext();
         if (!res) {
           clearInterval(interval);
-          this.generate();
         }
       } catch (error) {
         clearInterval(interval);
@@ -210,7 +210,7 @@ export class Sudoku {
           this.solve();
         }
       }
-    }, 10);
+    }, 300);
   }
 }
 
