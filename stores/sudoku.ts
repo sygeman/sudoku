@@ -94,7 +94,8 @@ export class Sudoku {
         index: this.SQUARES.findIndex((v) => v === id),
         selected: this.selected === id,
         selectedLine: row === this.selectedRow || col === this.selectedCol,
-        selectedSame: false,
+        selectedSame:
+          this.DIGITS.includes(value) && value === this.values[this.selected],
         protected: initValue !== this.BLANK_CHAR,
         error: false,
         candidates: (this.candidates[id] || "").split(""),
