@@ -17,10 +17,7 @@ export function generate(difficulty = DIFFICULTY.medium): string {
   difficulty = forceRange(difficulty, NR_SQUARES + 1, MIN_GIVENS);
 
   // Get a set of squares and all possible candidates for each square
-  let blankBoard = "";
-  for (let i = 0; i < NR_SQUARES; ++i) {
-    blankBoard += ".";
-  }
+  let blankBoard = new Array(NR_SQUARES).fill(BLANK_CHAR).join("");
   const candidates = getCandidates(blankBoard);
 
   if (candidates === false) throw "Invalid candidates";
