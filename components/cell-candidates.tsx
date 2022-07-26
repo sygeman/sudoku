@@ -16,7 +16,7 @@ export const CellCandidates = ({
   <button
     className={clsx(
       "flex flex-wrap justify-center items-center h-8 w-8 cursor-pointer rounded-sm",
-      "font-medium text-white/30 transition-colors delay-75",
+      "font-medium text-white/30",
       selected
         ? "bg-indigo-900"
         : highlightSame
