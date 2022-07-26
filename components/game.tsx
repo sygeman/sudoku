@@ -4,10 +4,26 @@ import { Cell } from "./cell";
 import { observer } from "mobx-react-lite";
 import { sudoku } from "../stores/sudoku";
 import { CellCandidates } from "./cell-candidates";
-import { ROWS } from "../constants";
+import { BLANK_CHAR, ROWS } from "../constants";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export const Game = observer(() => {
-  const { boardAll } = sudoku;
+  const debug = true;
+  const router = useRouter();
+  const id = router.query?.id as string;
+  const { boardAll, board, selected } = sudoku;
+
+  useEffect(() => {
+    router.push(`/game/${id}?board=${board}&selected=${selected}`);
+  }, [id, board, selected]);
+
+  useEffect(() => {
+    const id = router.query?.id as string;
+    const board = router.query?.board as string;
+    const selected = router.query?.selected as string;
+    if (id) sudoku.init(id, board, selected);
+  }, [id]);
 
   return (
     <div className="w-80 scale-150">
@@ -26,7 +42,7 @@ export const Game = observer(() => {
               const cellHighlightSame = cellData.selectedSame;
               const value = cellData.value;
 
-              if (value === ".") {
+              if (debug && value === BLANK_CHAR) {
                 const candidates = cellData.candidates.join(" ");
 
                 return (
@@ -42,7 +58,7 @@ export const Game = observer(() => {
 
               return (
                 <Cell
-                  value={value === "." ? "" : value}
+                  value={value === BLANK_CHAR ? "" : value}
                   selected={cellSelected}
                   highlightLine={cellHighlightLine}
                   highlightSame={cellHighlightSame}

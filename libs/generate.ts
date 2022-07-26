@@ -12,7 +12,7 @@ import { solve } from "./solve";
 import { assign } from "./assign";
 import { getCandidates } from "./get-candidates";
 
-export function generate(difficulty = DIFFICULTY.medium): string {
+export function generate(difficulty = DIFFICULTY.easy): string {
   // Force difficulty between 17 and 81 inclusive
   difficulty = forceRange(difficulty, NR_SQUARES + 1, MIN_GIVENS);
 

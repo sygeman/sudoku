@@ -1,37 +1,16 @@
 import { makeAutoObservable } from "mobx";
-import { generate } from "../libs/generate";
+import { BLANK_BOARD, BLANK_CHAR, DIGITS, SQUARES } from "../constants";
 import { getCandidates } from "../libs/get-candidates";
 import { getIncludesCount } from "../libs/get-includes-count";
-import { getSquarePeers } from "../libs/get-square-peers";
-import { getSquareUnits } from "../libs/get-square-units";
 import { getSquareVals } from "../libs/get-square-vals";
-import { getUnits } from "../libs/get-units";
-import { cross } from "../utils/cross";
 
 export class Sudoku {
   constructor() {
     makeAutoObservable(this);
-    this.generate();
   }
 
-  BLANK_CHAR = ".";
-  DIGITS = "123456789";
-  ROWS = "ABCDEFGHI";
-  COLS = this.DIGITS;
-  SQUARES = cross(this.ROWS, this.COLS);
-  UNITS = getUnits(this.ROWS, this.COLS);
-  SQUARE_UNITS = getSquareUnits(this.SQUARES, this.UNITS);
-  SQUARE_PEERS = getSquarePeers(this.SQUARES, this.SQUARE_UNITS);
-  MIN_GIVENS = 17;
-  NR_SQUARES = 81;
-  DIFFICULTY = {
-    easy: 62,
-    medium: 53,
-    hard: 44,
-  };
-
-  initBoard = new Array(this.NR_SQUARES).fill(this.BLANK_CHAR).join("");
-  board = this.initBoard;
+  initBoard = BLANK_BOARD;
+  board = BLANK_BOARD;
   selected = "A1";
   prevSetValuePayload: { id: string; value: string } | null = null;
   invalidCandidates: { id: string; value: string }[] = [];
@@ -44,12 +23,9 @@ export class Sudoku {
     return getSquareVals(this.board);
   }
 
-  get selectedRow() {
-    return this.selected.split("")[0];
-  }
-
-  get selectedCol() {
-    return this.selected.split("")[1];
+  get selectedData() {
+    const [row, col] = this.selected.split("");
+    return { row, col };
   }
 
   get candidates() {
@@ -82,21 +58,22 @@ export class Sudoku {
     } = {};
 
     // Start by assigning every digit as a candidate to every square
-    for (let si in this.SQUARES) {
-      const id = this.SQUARES[si];
+    for (let si in SQUARES) {
+      const id = SQUARES[si];
       const [row, col] = id.split("");
       const initValue = this.initValues[id];
       const value = this.values[id];
+      const selected = this.selectedData;
 
       cells[id] = {
         id,
         value,
-        index: this.SQUARES.findIndex((v) => v === id),
+        index: SQUARES.findIndex((v) => v === id),
         selected: this.selected === id,
-        selectedLine: row === this.selectedRow || col === this.selectedCol,
+        selectedLine: row === selected?.row || col === selected?.col,
         selectedSame:
-          this.DIGITS.includes(value) && value === this.values[this.selected],
-        protected: initValue !== this.BLANK_CHAR,
+          DIGITS.includes(value) && value === this.values[this.selected],
+        protected: initValue !== BLANK_CHAR,
         error: false,
         candidates: (this.candidates[id] || "").split(""),
       };
@@ -107,22 +84,6 @@ export class Sudoku {
 
   get includesCount() {
     return getIncludesCount(this.board);
-  }
-
-  getSquareVals(board: string) {
-    const squaresValsMap: { [key: string]: string } = {};
-
-    // Make sure `board` is a string of length 81
-    if (board.length != this.SQUARES.length) {
-      // throw "Board/squares length mismatch.";
-      return {};
-    } else {
-      for (let i = 0; i < this.SQUARES.length; i++) {
-        squaresValsMap[this.SQUARES[i]] = board[i];
-      }
-    }
-
-    return squaresValsMap;
   }
 
   select(id: string) {
@@ -144,11 +105,19 @@ export class Sudoku {
       })
       .join("");
 
-    if (value !== this.BLANK_CHAR) {
+    if (value !== BLANK_CHAR) {
       this.prevSetValuePayload = { id, value };
     }
 
     return true;
+  }
+
+  init(initBoard: string, board?: string, selected?: string) {
+    console.log("init", { initBoard, board, selected });
+    this.invalidCandidates = [];
+    this.board = board || initBoard;
+    this.initBoard = initBoard;
+    this.selected = selected || "A1";
   }
 
   setValueSelected(value: string) {
@@ -159,16 +128,9 @@ export class Sudoku {
     this.invalidCandidates.push({ id, value });
   }
 
-  generate() {
-    this.invalidCandidates = [];
-    const board = generate();
-    this.board = board;
-    this.initBoard = board;
-  }
-
   solveNext() {
     const cell = Object.values(this.boardAll).find(
-      (c) => c.candidates.length === 1 && c.value === "."
+      (c) => c.candidates.length === 1 && c.value === BLANK_CHAR
     );
 
     if (cell) {
@@ -179,7 +141,7 @@ export class Sudoku {
     }
 
     const cellMultiple = Object.values(this.boardAll).find(
-      (c) => c.value === "."
+      (c) => c.value === BLANK_CHAR
     );
 
     if (cellMultiple) {
@@ -207,11 +169,17 @@ export class Sudoku {
           console.log(`Invalid candidate ${id}:${value}`);
 
           this.addInvalidCandidate(id, value);
-          this.setValue(id, ".");
+          this.setValue(id, BLANK_CHAR);
           this.solve();
         }
       }
     }, 300);
+  }
+
+  reset() {
+    this.invalidCandidates = [];
+    this.board = this.initBoard;
+    this.selected = "A1";
   }
 }
 

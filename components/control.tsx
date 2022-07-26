@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import { observer } from "mobx-react-lite";
 import React from "react";
+import { BLANK_CHAR } from "../constants";
+import { useGenerate } from "../hooks/generate";
 import { sudoku } from "../stores/sudoku";
 import { ControlButton } from "./control-button";
 
@@ -8,6 +10,7 @@ const x9Array = [...new Array(9)];
 
 export const Control = observer(() => {
   const { includesCount } = sudoku;
+  const { generate } = useGenerate();
 
   return (
     <>
@@ -34,7 +37,7 @@ export const Control = observer(() => {
             "bg-slate-800/50 text-gray-400 font-medium uppercase text-sm",
             "disabled:opacity-20"
           )}
-          onClick={() => sudoku.generate()}
+          onClick={generate}
         >
           New Game
         </button>
@@ -44,9 +47,9 @@ export const Control = observer(() => {
             "bg-slate-800/50 text-gray-400 font-medium uppercase text-sm",
             "disabled:opacity-20"
           )}
-          onClick={() => sudoku.setValueSelected(".")}
+          onClick={() => sudoku.reset()}
         >
-          Erase
+          Reset
         </button>
         <button
           className={clsx(
@@ -57,6 +60,16 @@ export const Control = observer(() => {
           onClick={() => sudoku.solve()}
         >
           Solve
+        </button>
+        <button
+          className={clsx(
+            "py-1 px-2 rounded",
+            "bg-slate-800/50 text-gray-400 font-medium uppercase text-sm",
+            "disabled:opacity-20"
+          )}
+          onClick={() => sudoku.setValueSelected(BLANK_CHAR)}
+        >
+          Erase
         </button>
       </div>
     </>
