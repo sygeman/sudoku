@@ -2,15 +2,13 @@ import clsx from "clsx";
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { BLANK_CHAR } from "../constants";
-import { useGenerate } from "../hooks/generate";
 import { sudoku } from "../stores/sudoku";
 import { ControlButton } from "./control-button";
 
 const x9Array = [...new Array(9)];
 
 export const Control = observer(() => {
-  const { includesCount } = sudoku;
-  const { generate } = useGenerate();
+  const { includesCount, debug, selectedData } = sudoku;
 
   return (
     <>
@@ -23,9 +21,11 @@ export const Control = observer(() => {
           >
             <>
               {index + 1}
-              <span className="absolute top-0 right-0 text-xs scale-75 px-0.5 opacity-50">
-                {`${9 - includesCount[index + 1]}`}
-              </span>
+              {debug && (
+                <span className="absolute top-0 right-0 text-xs scale-75 px-0.5 opacity-50">
+                  {`${9 - includesCount[index + 1]}`}
+                </span>
+              )}
             </>
           </ControlButton>
         ))}
@@ -37,36 +37,7 @@ export const Control = observer(() => {
             "bg-slate-800/50 text-gray-400 font-medium uppercase text-sm",
             "disabled:opacity-20"
           )}
-          onClick={generate}
-        >
-          New Game
-        </button>
-        <button
-          className={clsx(
-            "py-1 px-2 rounded",
-            "bg-slate-800/50 text-gray-400 font-medium uppercase text-sm",
-            "disabled:opacity-20"
-          )}
-          onClick={() => sudoku.reset()}
-        >
-          Reset
-        </button>
-        <button
-          className={clsx(
-            "py-1 px-2 rounded",
-            "bg-slate-800/50 text-gray-400 font-medium uppercase text-sm",
-            "disabled:opacity-20"
-          )}
-          onClick={() => sudoku.solve()}
-        >
-          Solve
-        </button>
-        <button
-          className={clsx(
-            "py-1 px-2 rounded",
-            "bg-slate-800/50 text-gray-400 font-medium uppercase text-sm",
-            "disabled:opacity-20"
-          )}
+          disabled={selectedData.protected}
           onClick={() => sudoku.setValueSelected(BLANK_CHAR)}
         >
           Erase

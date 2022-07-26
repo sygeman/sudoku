@@ -9,6 +9,7 @@ export class Sudoku {
     makeAutoObservable(this);
   }
 
+  debug = false;
   initBoard = BLANK_BOARD;
   board = BLANK_BOARD;
   selected = "A1";
@@ -25,7 +26,11 @@ export class Sudoku {
 
   get selectedData() {
     const [row, col] = this.selected.split("");
-    return { row, col };
+    return {
+      row,
+      col,
+      protected: this.initValues[this.selected] !== BLANK_CHAR,
+    };
   }
 
   get candidates() {
@@ -180,6 +185,10 @@ export class Sudoku {
     this.invalidCandidates = [];
     this.board = this.initBoard;
     this.selected = "A1";
+  }
+
+  toggleDebug() {
+    this.debug = !this.debug;
   }
 }
 

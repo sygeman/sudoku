@@ -7,12 +7,15 @@ import { CellCandidates } from "./cell-candidates";
 import { BLANK_CHAR, ROWS } from "../constants";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import clsx from "clsx";
+import { useGenerate } from "../hooks/generate";
+import { Dubug } from "./debug";
 
 export const Game = observer(() => {
-  const debug = true;
   const router = useRouter();
   const id = router.query?.id as string;
-  const { boardAll, board, selected } = sudoku;
+  const { debug, boardAll, board, selected } = sudoku;
+  const { generate } = useGenerate();
 
   useEffect(() => {
     router.push(`/game/${id}?board=${board}&selected=${selected}`);
@@ -26,7 +29,37 @@ export const Game = observer(() => {
   }, [id]);
 
   return (
-    <div className="w-80 scale-150">
+    <div className="w-80 md:scale-150 relative">
+      <div className="flex h-8 w-full items-end py-1 whitespace-nowrap">
+        <div
+          className="w-full uppercase text-sm font-medium text-white/30"
+          onClick={() => sudoku.toggleDebug()}
+        >
+          Sudoku
+        </div>
+        <div className="flex gap-1">
+          <button
+            className={clsx(
+              "flex px-1 rounded",
+              "bg-slate-900 text-gray-400 font-medium uppercase text-xs",
+              "disabled:opacity-20"
+            )}
+            onClick={generate}
+          >
+            New Game
+          </button>
+          <button
+            className={clsx(
+              "flex px-1 rounded",
+              "bg-slate-900 text-gray-400 font-medium uppercase text-xs",
+              "disabled:opacity-20"
+            )}
+            onClick={() => sudoku.reset()}
+          >
+            Reset
+          </button>
+        </div>
+      </div>
       <X3Grid
         gap={2}
         renderCell={(mainRowIndex, mainCellIndex) => (
@@ -74,6 +107,8 @@ export const Game = observer(() => {
       <div className="mt-4">
         <Control />
       </div>
+
+      {debug && <Dubug />}
     </div>
   );
 });
