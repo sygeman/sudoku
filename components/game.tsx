@@ -112,5 +112,3 @@ export const Game = observer(() => {
     </div>
   );
 });
-
-export default Game;
