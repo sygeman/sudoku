@@ -15,7 +15,8 @@
     "mobx-react-lite": "3.4.0",
     "next": "12.2.3",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "simplebar-react": "2.4.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "5.16.4",

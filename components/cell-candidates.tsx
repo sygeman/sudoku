@@ -27,6 +27,8 @@ export const CellCandidates = ({
     )}
     onClick={() => onClick && onClick()}
   >
-    <div className="text-xs scale-90">{candidates}</div>
+    <div className="leading-[0.625rem] text-[0.688rem] scale-90">
+      {candidates}
+    </div>
   </button>
 );

@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import clsx from "clsx";
 import { useGenerate } from "../hooks/generate";
 import { Dubug } from "./debug";
+import { History } from "./history";
 
 export const Game = observer(() => {
   const router = useRouter();
@@ -108,6 +109,7 @@ export const Game = observer(() => {
         <Control />
       </div>
 
+      {debug && <History />}
       {debug && <Dubug />}
     </div>
   );

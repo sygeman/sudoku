@@ -9,12 +9,13 @@ export class Sudoku {
     makeAutoObservable(this);
   }
 
-  debug = false;
+  debug = true;
   initBoard = BLANK_BOARD;
   board = BLANK_BOARD;
   selected = "A1";
   prevSetValuePayload: { id: string; value: string } | null = null;
   invalidCandidates: { id: string; value: string }[] = [];
+  history: { id: string; value: string }[] = [];
 
   get initValues() {
     return getSquareVals(this.initBoard);
@@ -97,6 +98,7 @@ export class Sudoku {
 
   setValue(id: string, value: string) {
     if (!value) return false;
+    this.history.push({ id, value });
 
     const data = this.boardAll[id];
 
@@ -120,6 +122,7 @@ export class Sudoku {
   init(initBoard: string, board?: string, selected?: string) {
     console.log("init", { initBoard, board, selected });
     this.invalidCandidates = [];
+    this.history = [];
     this.board = board || initBoard;
     this.initBoard = initBoard;
     this.selected = selected || "A1";
@@ -133,7 +136,7 @@ export class Sudoku {
     this.invalidCandidates.push({ id, value });
   }
 
-  solveNext() {
+  fillNext() {
     const cell = Object.values(this.boardAll).find(
       (c) => c.candidates.length === 1 && c.value === BLANK_CHAR
     );
@@ -159,10 +162,10 @@ export class Sudoku {
     return false;
   }
 
-  solve() {
+  fill() {
     const interval = setInterval(() => {
       try {
-        const res = this.solveNext();
+        const res = this.fillNext();
         if (!res) {
           clearInterval(interval);
         }
@@ -175,7 +178,7 @@ export class Sudoku {
 
           this.addInvalidCandidate(id, value);
           this.setValue(id, BLANK_CHAR);
-          this.solve();
+          this.fill();
         }
       }
     }, 300);
@@ -189,6 +192,10 @@ export class Sudoku {
 
   toggleDebug() {
     this.debug = !this.debug;
+  }
+
+  empty() {
+    this.init(BLANK_BOARD);
   }
 }
 
