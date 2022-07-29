@@ -50,6 +50,8 @@ export class SudokuStore {
 
   get boardAll() {
     const cells: BoardAll = {};
+    const solution =
+      this.initBoard === BLANK_BOARD ? BLANK_BOARD : fillBoard(this.initBoard);
 
     // Start by assigning every digit as a candidate to every square
     for (let si in SQUARES) {
@@ -60,6 +62,10 @@ export class SudokuStore {
       const selected = this.selectedData;
       const candidates = (this.candidates[id] || "").split("");
       const index = SQUARES.findIndex((v) => v === id);
+      const isError =
+        solution[index] !== BLANK_CHAR &&
+        value !== BLANK_CHAR &&
+        solution[index] !== value;
 
       cells[id] = {
         id,
@@ -70,10 +76,7 @@ export class SudokuStore {
         selectedSame:
           DIGITS.includes(value) && value === this.values[this.selected],
         protected: initValue !== BLANK_CHAR,
-        error:
-          this.solution[index] !== BLANK_CHAR &&
-          value !== BLANK_CHAR &&
-          this.solution[index] !== value,
+        error: isError,
         candidates,
       };
     }
