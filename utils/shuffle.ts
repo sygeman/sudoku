@@ -1,5 +1,5 @@
 // Fisher-Yates algorithm
-export function shuffle([...arr]) {
+export function shuffle<Type>([...arr]: Type[]) {
   let m = arr.length;
   while (m) {
     const i = Math.floor(Math.random() * m--);
