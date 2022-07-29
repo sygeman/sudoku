@@ -26,10 +26,8 @@ export const Dubug = () => (
       <Button onClick={() => sudoku.empty()}>Empty</Button>
       <div className="my-1" />
       <Button onClick={() => sudoku.fill()}>Fill</Button>
-      <Button onClick={() => sudoku.fillNext()}>Fill Next</Button>
       <div className="my-1" />
       <Button onClick={() => sudoku.eliminate()}>Eliminate</Button>
-      <Button onClick={() => sudoku.eliminateNext()}>Eliminate Next</Button>
       <div className="my-1" />
       <Button onClick={() => sudoku.generate()}>Generate</Button>
     </div>

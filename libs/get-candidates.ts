@@ -1,11 +1,8 @@
 import { DIGITS, SQUARES } from "../constants";
-import { validate } from "./validate";
 import { getSquareVals } from "./get-square-vals";
 import { assign } from "./assign";
 
 export function getCandidates(board: string) {
-  validate(board);
-
   const squaresValuesMap = getSquareVals(board);
   const candidateMap: { [key: string]: string } = {};
 

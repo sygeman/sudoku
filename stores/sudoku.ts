@@ -6,13 +6,13 @@ import {
   DIGITS,
   SQUARES,
 } from "../constants";
-import { findCellWithMinCandidates } from "../libs/find-cell-with-min-candidates";
+import { eliminateBoard } from "../libs/eliminate-board";
+import { fillBoard } from "../libs/fill-board";
 import { getCandidates } from "../libs/get-candidates";
 import { getIncludesCount } from "../libs/get-includes-count";
 import { getSquareVals } from "../libs/get-square-vals";
-import { groupCellByCandidatesCount } from "../libs/group-cell-by-candidates-count";
-import { BoardAll, Cell } from "../types/board-all";
-import { shuffle } from "../utils/shuffle";
+import { setBoardValue } from "../libs/set-board-value";
+import { BoardAll } from "../types/board-all";
 
 export class SudokuStore {
   constructor() {
@@ -25,19 +25,7 @@ export class SudokuStore {
   board = BLANK_BOARD;
   solution = BLANK_BOARD;
   selected = "A1";
-  prevSetValuePayload: { id: string; value: string } | null = null;
-  invalidCandidates: { id: string; value: string }[] = [];
   history: { id: string; value: string }[] = [];
-  invalidEliminateIds = new Set();
-
-  get cellsForEliminate() {
-    return shuffle<Cell>(
-      Object.values(this.boardAll).filter(
-        (cell) =>
-          cell.value !== BLANK_CHAR && !this.invalidEliminateIds.has(cell.id)
-      )
-    );
-  }
 
   get initValues() {
     return getSquareVals(this.initBoard);
@@ -57,21 +45,7 @@ export class SudokuStore {
   }
 
   get candidates() {
-    const allCandidates = { ...(getCandidates(this.board) || {}) };
-
-    this.invalidCandidates.forEach(({ id, value }) => {
-      if (!allCandidates[id]) return;
-      allCandidates[id] = allCandidates[id]
-        .split("")
-        .filter((c) => c !== value)
-        .join("");
-    });
-
-    return allCandidates;
-  }
-
-  get candidatesGroup() {
-    return groupCellByCandidatesCount(this.boardAll);
+    return { ...(getCandidates(this.board) || {}) };
   }
 
   get boardAll() {
@@ -131,26 +105,13 @@ export class SudokuStore {
 
     if (data.protected) return false;
 
-    this.board = this.board
-      .split("")
-      .map((char, index) => {
-        if (data.index !== index) return char;
-        return value;
-      })
-      .join("");
-
-    if (value !== BLANK_CHAR) {
-      this.prevSetValuePayload = { id, value };
-    }
+    this.board = setBoardValue(this.board, id, value);
 
     return true;
   }
 
   init(initBoard: string, board?: string, selected?: string) {
-    this.invalidEliminateIds.clear();
-    this.invalidCandidates = [];
     this.history = [];
-    this.solution = BLANK_BOARD;
     this.board = board || initBoard;
     this.initBoard = initBoard;
     this.selected = selected || "A1";
@@ -160,96 +121,22 @@ export class SudokuStore {
     return this.setValue(this.selected, value);
   }
 
-  addInvalidCandidate(id: string, value: string) {
-    this.invalidCandidates.push({ id, value });
-  }
-
-  fillNext() {
-    const cellGroup = groupCellByCandidatesCount(this.boardAll);
-    const cell = findCellWithMinCandidates({
-      cellGroup,
-      pickRandomCandidate: true,
-    });
-
-    if (!cell) return false;
-
-    const res = this.setValue(cell.id, cell.candidates[0]);
-    if (!res) throw "Invalid value";
-    return res;
-  }
-
   fill() {
-    while (true) {
-      try {
-        const res = this.fillNext();
-        if (!res) break;
-      } catch (error) {
-        if (this.prevSetValuePayload) {
-          const { id, value } = this.prevSetValuePayload;
-          console.log(`Invalid candidate ${id}:${value}`);
-          this.addInvalidCandidate(id, value);
-          this.setValue(id, BLANK_CHAR);
-          this.fill();
-        }
-
-        break;
-      }
-    }
-  }
-
-  eliminateRandom() {
-    const randomCell = this.cellsForEliminate?.[0];
-    if (!randomCell) return null;
-    this.setValue(randomCell.id, BLANK_CHAR);
-    return randomCell;
-  }
-
-  eliminateNext() {
-    let eliminatedCell: Cell | null = null;
-
-    while (this.cellsForEliminate.length > 0) {
-      const cell = this.eliminateRandom();
-      if (cell) {
-        const valid =
-          this.candidatesGroup.size === 1 &&
-          this.candidatesGroup.keys().next().value === 1;
-
-        if (!valid) {
-          this.invalidEliminateIds.add(cell.id);
-          this.setValue(cell.id, cell.value);
-          break;
-        }
-
-        eliminatedCell = cell;
-        break;
-      }
-    }
-
-    return eliminatedCell;
+    this.board = fillBoard(this.board);
   }
 
   eliminate() {
-    while (
-      this.cellsForEliminate.length > 0 &&
-      this.emptyCount < this.difficulty
-    ) {
-      this.eliminateNext();
-    }
-
-    this.invalidEliminateIds.clear();
+    this.board = eliminateBoard(this.board, this.difficulty);
   }
 
   generate() {
     this.empty();
     this.fill();
-    this.solution = this.board;
     this.eliminate();
     this.initBoard = this.board;
   }
 
   reset() {
-    this.invalidEliminateIds.clear();
-    this.invalidCandidates = [];
     this.board = this.initBoard;
     this.selected = "A1";
   }

@@ -1,9 +1,7 @@
-import { DIFFICULTY } from "../constants";
-import { SudokuStore } from "../stores/sudoku";
+import { BLANK_BOARD, DIFFICULTY } from "../constants";
+import { eliminateBoard } from "./eliminate-board";
+import { fillBoard } from "./fill-board";
 
 export function generate(difficulty = DIFFICULTY.easy): string {
-  const sudoku = new SudokuStore();
-  sudoku.difficulty = difficulty;
-  sudoku.generate();
-  return sudoku.board;
+  return eliminateBoard(fillBoard(BLANK_BOARD), difficulty);
 }
