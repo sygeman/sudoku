@@ -20,7 +20,7 @@ export class SudokuStore {
   }
 
   difficulty = DIFFICULTY.easy;
-  debug = true;
+  debug = false;
   initBoard = BLANK_BOARD;
   board = BLANK_BOARD;
   solution = BLANK_BOARD;
@@ -147,8 +147,10 @@ export class SudokuStore {
   }
 
   init(initBoard: string, board?: string, selected?: string) {
+    this.invalidEliminateIds.clear();
     this.invalidCandidates = [];
     this.history = [];
+    this.solution = BLANK_BOARD;
     this.board = board || initBoard;
     this.initBoard = initBoard;
     this.selected = selected || "A1";
@@ -171,43 +173,33 @@ export class SudokuStore {
 
     if (!cell) return false;
 
-    this.select(cell.id);
-    const res = this.setValueSelected(cell.candidates[0]);
+    const res = this.setValue(cell.id, cell.candidates[0]);
     if (!res) throw "Invalid value";
     return res;
   }
 
   fill() {
-    return new Promise((resolve) => {
-      const interval = setInterval(() => {
-        try {
-          const res = this.fillNext();
-          if (!res) {
-            clearInterval(interval);
-            resolve(null);
-          }
-        } catch (error) {
-          clearInterval(interval);
-
-          if (this.prevSetValuePayload) {
-            const { id, value } = this.prevSetValuePayload;
-            console.log(`Invalid candidate ${id}:${value}`);
-
-            this.addInvalidCandidate(id, value);
-            this.setValue(id, BLANK_CHAR);
-            this.fill();
-          }
-
-          resolve(null);
+    while (true) {
+      try {
+        const res = this.fillNext();
+        if (!res) break;
+      } catch (error) {
+        if (this.prevSetValuePayload) {
+          const { id, value } = this.prevSetValuePayload;
+          console.log(`Invalid candidate ${id}:${value}`);
+          this.addInvalidCandidate(id, value);
+          this.setValue(id, BLANK_CHAR);
+          this.fill();
         }
-      }, 50);
-    });
+
+        break;
+      }
+    }
   }
 
   eliminateRandom() {
     const randomCell = this.cellsForEliminate?.[0];
     if (!randomCell) return null;
-    this.select(randomCell.id);
     this.setValue(randomCell.id, BLANK_CHAR);
     return randomCell;
   }
@@ -224,7 +216,6 @@ export class SudokuStore {
 
         if (!valid) {
           this.invalidEliminateIds.add(cell.id);
-          this.select(cell.id);
           this.setValue(cell.id, cell.value);
           break;
         }
@@ -238,35 +229,26 @@ export class SudokuStore {
   }
 
   eliminate() {
-    return new Promise((resolve) => {
-      const interval = setInterval(() => {
-        try {
-          this.eliminateNext();
-          if (
-            this.cellsForEliminate.length === 0 ||
-            this.emptyCount >= this.difficulty
-          ) {
-            this.invalidEliminateIds.clear();
-            clearInterval(interval);
-            resolve(null);
-          }
-        } catch (error) {
-          clearInterval(interval);
-          resolve(null);
-        }
-      }, 50);
-    });
+    while (
+      this.cellsForEliminate.length > 0 &&
+      this.emptyCount < this.difficulty
+    ) {
+      this.eliminateNext();
+    }
+
+    this.invalidEliminateIds.clear();
   }
 
-  async generate() {
+  generate() {
     this.empty();
-    await this.fill();
+    this.fill();
     this.solution = this.board;
-    await this.eliminate();
+    this.eliminate();
     this.initBoard = this.board;
   }
 
   reset() {
+    this.invalidEliminateIds.clear();
     this.invalidCandidates = [];
     this.board = this.initBoard;
     this.selected = "A1";
