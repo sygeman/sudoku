@@ -16,7 +16,7 @@ export const SQUARE_PEERS = getSquarePeers(SQUARES, SQUARE_UNITS);
 export const BLANK_BOARD = new Array(NR_SQUARES).fill(BLANK_CHAR).join("");
 
 export const DIFFICULTY = {
-  easy: 62,
-  medium: 53,
-  hard: 44,
+  easy: 43,
+  medium: 51,
+  hard: 56,
 };
