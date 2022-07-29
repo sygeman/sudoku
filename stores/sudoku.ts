@@ -23,7 +23,6 @@ export class SudokuStore {
   debug = false;
   initBoard = BLANK_BOARD;
   board = BLANK_BOARD;
-  solution = BLANK_BOARD;
   selected = "A1";
   history: { id: string; value: string }[] = [];
 
