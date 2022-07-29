@@ -96,6 +96,7 @@ export const Game = observer(() => {
                   selected={cellSelected}
                   highlightLine={cellHighlightLine}
                   highlightSame={cellHighlightSame}
+                  highlightError={cellData.error}
                   notProtected={!cellData.protected}
                   onClick={() => sudoku.select(id)}
                 />

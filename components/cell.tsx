@@ -5,6 +5,7 @@ export const Cell = ({
   selected,
   highlightLine,
   highlightSame,
+  highlightError,
   notProtected,
   onClick,
 }: {
@@ -12,6 +13,7 @@ export const Cell = ({
   selected?: boolean;
   highlightLine?: boolean;
   highlightSame?: boolean;
+  highlightError?: boolean;
   notProtected?: boolean;
   onClick?: () => void;
 }) => (
@@ -20,7 +22,9 @@ export const Cell = ({
       "flex justify-center items-center h-8 w-8 cursor-pointer rounded-sm",
       "font-medium text-xl text-white/50",
       notProtected && !selected ? "text-indigo-400" : "text-white/50",
-      selected
+      highlightError
+        ? "bg-red-600/20"
+        : selected
         ? "bg-indigo-900"
         : highlightSame
         ? "bg-transparent"
