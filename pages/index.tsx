@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
 import { useEffect } from "react";
-import { useGenerate } from "../hooks/generate";
+import { useSudoku } from "../hooks/sudoku";
 
 const Home: NextPage = () => {
-  const { generate } = useGenerate();
+  const { generate } = useSudoku();
 
   useEffect(() => {
     generate();

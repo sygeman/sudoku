@@ -1,14 +1,22 @@
 import clsx from "clsx";
-import { observer } from "mobx-react-lite";
+import { useRouter } from "next/router";
 import React from "react";
-import { BLANK_CHAR } from "../constants";
-import { sudoku } from "../stores/sudoku";
+import { BLANK_BOARD, BLANK_CHAR } from "../constants";
+import { useSudoku } from "../hooks/sudoku";
+import { getIncludesCount } from "../libs/get-includes-count";
+import { isProtected } from "../libs/is-protected";
 import { ControlButton } from "./control-button";
 
 const x9Array = [...new Array(9)];
 
-export const Control = observer(() => {
-  const { includesCount, debug, selectedData } = sudoku;
+export const Control = ({ debug = false }: { debug: boolean }) => {
+  const router = useRouter();
+  const initBoard = router.query?.id as string;
+  const board = router.query?.board as string;
+  const selected = router.query?.selected as string;
+  const selectedIsProtected = isProtected(initBoard, selected);
+  const includesCount = getIncludesCount(board || initBoard || BLANK_BOARD);
+  const { setValueSelected } = useSudoku();
 
   return (
     <>
@@ -17,7 +25,7 @@ export const Control = observer(() => {
           <ControlButton
             key={index}
             disabled={includesCount[index + 1] === 9}
-            onClick={() => sudoku.setValueSelected(`${index + 1}`)}
+            onClick={() => setValueSelected(`${index + 1}`)}
           >
             <>
               {index + 1}
@@ -37,12 +45,12 @@ export const Control = observer(() => {
             "bg-slate-800/50 text-gray-400 font-medium uppercase text-sm",
             "disabled:opacity-20"
           )}
-          disabled={selectedData.protected}
-          onClick={() => sudoku.setValueSelected(BLANK_CHAR)}
+          disabled={selectedIsProtected}
+          onClick={() => setValueSelected(BLANK_CHAR)}
         >
           Erase
         </button>
       </div>
     </>
   );
-});
+};
