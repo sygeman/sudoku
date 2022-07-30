@@ -9,7 +9,15 @@ import { useSudoku } from "../hooks/sudoku";
 
 export const Game = () => {
   const [debug, setDebug] = useState(false);
-  const { boardAll, generate, reset, select } = useSudoku();
+  const {
+    boardAll,
+    includesCount,
+    selectedIsProtected,
+    generate,
+    reset,
+    select,
+    setValueSelected,
+  } = useSudoku();
 
   return (
     <div className="w-80 md:scale-150 relative">
@@ -89,7 +97,12 @@ export const Game = () => {
       />
 
       <div className="mt-4">
-        <Control debug={debug} />
+        <Control
+          debug={debug}
+          includesCount={includesCount}
+          selectedIsProtected={selectedIsProtected}
+          setValueSelected={setValueSelected}
+        />
       </div>
     </div>
   );
