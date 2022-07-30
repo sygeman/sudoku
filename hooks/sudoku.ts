@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { BLANK_BOARD } from "../constants";
+import { useCallback, useEffect, useState } from "react";
+import { BLANK_BOARD, BLANK_CHAR, DIGITS, ROWS } from "../constants";
 import { generateBoard } from "../libs/generate-board";
 import { getBoardAll } from "../libs/get-board-all";
 import { getIncludesCount } from "../libs/get-includes-count";
@@ -11,7 +11,6 @@ export const useSudoku = () => {
   const router = useRouter();
   const initBoardFromUrl = (router.query?.id as string) || BLANK_BOARD;
   const boardFromUrl = (router.query?.board as string) || initBoardFromUrl;
-  const selectedFromUrl = (router.query?.selected as string) || "A1";
 
   const [initBoard, setInitBoard] = useState(initBoardFromUrl);
   const [board, setBoard] = useState(boardFromUrl);
@@ -25,19 +24,14 @@ export const useSudoku = () => {
     if (initBoardFromUrl !== BLANK_BOARD) {
       setInitBoard(initBoardFromUrl);
       setBoard(boardFromUrl);
-      setSelected(selectedFromUrl);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initBoardFromUrl]);
 
-  useEffect(() => {
-    if (initBoard !== BLANK_BOARD) {
-      router.push(`/game/${initBoard}?board=${board}&selected=${selected}`);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [board, selected]);
-
-  const reset = () => router.push(`/game/${initBoard}`);
+  const reset = () => {
+    setBoard(initBoard);
+    setSelected("A1");
+  };
   const generate = () => router.push(`/game/${generateBoard()}`);
   const select = (id: string) => setSelected(id);
 
@@ -48,6 +42,52 @@ export const useSudoku = () => {
   };
 
   const setValueSelected = (value: string) => setValue(selected, value);
+
+  const downHandler = useCallback(
+    ({ key }: { key: string }) => {
+      if (DIGITS.includes(key)) return setValueSelected(key);
+
+      if (["Backspace", "Delete", "Space"].includes(key))
+        return setValueSelected(BLANK_CHAR);
+
+      const [row, col] = selected.split("");
+      const rowsAsArray = ROWS.split("");
+      const colsAsArray = DIGITS.split("");
+      const indexRow = rowsAsArray.findIndex((r) => r === row);
+      const indexCol = colsAsArray.findIndex((c) => c === col);
+      let newRow = row;
+      let newCol = col;
+
+      switch (key) {
+        case "ArrowUp":
+          if (indexRow > 0) newRow = rowsAsArray[indexRow - 1];
+          break;
+        case "ArrowDown":
+          if (indexRow < rowsAsArray.length - 1)
+            newRow = rowsAsArray[indexRow + 1];
+          break;
+        case "ArrowLeft":
+          if (indexCol > 0) newCol = colsAsArray[indexCol - 1];
+          break;
+        case "ArrowRight":
+          if (indexCol < colsAsArray.length - 1)
+            newCol = colsAsArray[indexCol + 1];
+          break;
+      }
+
+      return select(`${newRow}${newCol}`);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selected, board]
+  );
+
+  useEffect(() => {
+    window.addEventListener("keydown", downHandler);
+    // Remove event listeners on cleanup
+    return () => {
+      window.removeEventListener("keydown", downHandler);
+    };
+  }, [downHandler]); // Empty array ensures that effect is only run on mount and unmount
 
   return {
     boardAll,

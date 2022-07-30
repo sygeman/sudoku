@@ -20,7 +20,7 @@ export const Cell = ({
   <button
     className={clsx(
       "flex justify-center items-center h-8 w-8 cursor-pointer rounded-sm",
-      "font-medium text-xl text-white/50",
+      "font-medium text-xl text-white/50 outline-none",
       notProtected && !selected ? "text-indigo-400" : "text-white/50",
       highlightError
         ? "bg-red-600/20"
