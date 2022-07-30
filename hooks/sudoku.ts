@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
-import { BLANK_BOARD, BLANK_CHAR, DIGITS, ROWS } from "../constants";
+import { BLANK_BOARD, BLANK_CHAR, DIGITS, ROWS, SQUARES } from "../constants";
 import { generateBoard } from "../libs/generate-board";
 import { getBoardAll } from "../libs/get-board-all";
 import { getIncludesCount } from "../libs/get-includes-count";
@@ -14,7 +14,7 @@ export const useSudoku = () => {
 
   const [initBoard, setInitBoard] = useState(initBoardFromUrl);
   const [board, setBoard] = useState(boardFromUrl);
-  const [selected, setSelected] = useState("A1");
+  const [selected, setSelected] = useState(SQUARES[0]);
 
   const boardAll = getBoardAll(initBoard, board, selected);
   const selectedIsProtected = isProtected(initBoard, selected);
@@ -30,7 +30,7 @@ export const useSudoku = () => {
 
   const reset = () => {
     setBoard(initBoard);
-    setSelected("A1");
+    setSelected(SQUARES[0]);
   };
   const generate = () => router.push(`/game/${generateBoard()}`);
   const select = (id: string) => setSelected(id);
@@ -93,9 +93,9 @@ export const useSudoku = () => {
     boardAll,
     includesCount,
     selectedIsProtected,
-    generate,
     reset,
     select,
+    generate,
     setValueSelected,
   };
 };
