@@ -31,8 +31,7 @@ export const useSudoku = () => {
       setBoard(boardFromUrl);
       setFailures(0);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initBoardFromUrl]);
+  }, [initBoardFromUrl, boardFromUrl]);
 
   const reset = () => {
     setBoard(initBoard);
