@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { BLANK_BOARD, SQUARES } from "../constants";
+import { BLANK_BOARD, BLANK_CHAR, DIFFICULTY, SQUARES } from "../constants";
 import { generateBoard } from "../libs/generate-board";
 import { getIncludesCount } from "../libs/get-includes-count";
 import { isProtected } from "../libs/is-protected";
@@ -24,6 +24,7 @@ export const useSudoku = () => {
   const includesCount = getIncludesCount(board);
   const soloved = board !== BLANK_BOARD && board === solution;
   const failed = failures > 2;
+  const difficulty = initBoard.split("").filter((c) => c === BLANK_CHAR).length;
 
   useEffect(() => {
     if (initBoardFromUrl !== BLANK_BOARD) {
@@ -38,7 +39,9 @@ export const useSudoku = () => {
     setSelected(SQUARES[0]);
     setFailures(0);
   };
-  const generate = () => router.push(`/game/${generateBoard()}`);
+  const newGame = () => router.push(`/`);
+  const generate = (difficulty = DIFFICULTY.easy) =>
+    router.push(`/game/${generateBoard(difficulty)}`);
   const select = (id: string) => setSelected(id);
 
   const setValue = (id: string, value: string) => {
@@ -64,11 +67,13 @@ export const useSudoku = () => {
     soloved,
     failures,
     boardData,
+    difficulty,
     includesCount,
     selectedIsProtected,
     reset,
     select,
     generate,
+    newGame,
     setValueSelected,
   };
 };

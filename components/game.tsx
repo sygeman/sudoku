@@ -7,6 +7,7 @@ import { BLANK_CHAR, ROWS } from "../constants";
 import { useState } from "react";
 import { useSudoku } from "../hooks/sudoku";
 import { HeaderButton } from "./header-button";
+import { useDifficulty } from "../hooks/difficulty";
 
 export const Game = () => {
   const [debug, setDebug] = useState(false);
@@ -15,17 +16,19 @@ export const Game = () => {
     soloved,
     failures,
     boardData,
+    difficulty,
     includesCount,
     selectedIsProtected,
-    generate,
+    newGame,
     reset,
     select,
     setValueSelected,
   } = useSudoku();
+  const difficultyLabel = useDifficulty(difficulty);
 
   return (
     <div className="relative w-80 md:scale-150">
-      <div className={clsx("relative", (failed || soloved) && "blur-sm")}>
+      <div className={clsx("relative", soloved && "blur-sm")}>
         <div className="relative">
           <div className="flex h-8 w-full items-end py-1 whitespace-nowrap">
             <div className="w-full" onClick={() => setDebug(!debug)}>
@@ -34,14 +37,14 @@ export const Game = () => {
               </div>
             </div>
             <div className="flex gap-1">
-              <HeaderButton onClick={generate}>New Game</HeaderButton>
+              <HeaderButton onClick={newGame}>New Game</HeaderButton>
               <HeaderButton onClick={reset}>Reset</HeaderButton>
             </div>
           </div>
 
           <div className="flex justify-between font-medium text-xs py-0.5 text-gray-400">
-            <div>Easy</div>
-            <div>Failures: {failures}/3</div>
+            <div>{difficultyLabel}</div>
+            <div>Failures: {failures}</div>
           </div>
 
           <X3Grid
@@ -99,19 +102,20 @@ export const Game = () => {
           </div>
         </div>
       </div>
-      {(failed || soloved) && (
+      {soloved && (
         <div className="absolute inset-0 w-full h-full flex items-center">
           <div
             className={clsx(
               "w-full py-4 flex flex-col justify-center items-center",
-              failed ? "bg-red-900/60 " : "bg-indigo-900/80 "
+              "bg-indigo-900/80 "
             )}
           >
-            <div className="font-medium">
-              {failed ? "Oh, no..." : "Awesome!"}
+            <div className="font-medium">Awesome!</div>
+            <div className="font-medium text-xs text-gray-400">
+              Failures: {failures}
             </div>
             <div className="flex gap-1 mt-2">
-              <HeaderButton onClick={generate}>New Game</HeaderButton>
+              <HeaderButton onClick={newGame}>New Game</HeaderButton>
               <HeaderButton onClick={reset}>Again</HeaderButton>
             </div>
           </div>
