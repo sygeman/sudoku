@@ -10,7 +10,7 @@ export type Cell = {
   candidates: string[];
 };
 
-export type BoardAll = {
+export type BoardData = {
   [key: string]: Cell;
 };
 

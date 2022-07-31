@@ -1,16 +1,16 @@
 import { BLANK_BOARD, BLANK_CHAR, DIGITS, SQUARES } from "../constants";
-import { BoardAll } from "../types/board-all";
+import { BoardData } from "../types/board-all";
 import { fillBoard } from "../libs/fill-board";
 import { getCandidates } from "../libs/get-candidates";
 import { getSquareVals } from "../libs/get-square-vals";
 import { useMemo } from "react";
 
-export const useBoardAll = (
+export const useBoardData = (
   initBoard: string,
   board: string,
   selected: string
 ) => {
-  const cells: BoardAll = {};
+  const boardData: BoardData = {};
   const initValues = useMemo(() => getSquareVals(initBoard), [initBoard]);
   const values = useMemo(() => getSquareVals(board), [board]);
   const allCandidates = useMemo(() => getCandidates(board) || {}, [board]);
@@ -31,7 +31,7 @@ export const useBoardAll = (
       value !== BLANK_CHAR &&
       solution[index] !== value;
 
-    cells[id] = {
+    boardData[id] = {
       id,
       value,
       index,
@@ -44,5 +44,5 @@ export const useBoardAll = (
     };
   }
 
-  return cells;
+  return { boardData, solution };
 };
