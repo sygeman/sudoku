@@ -1,21 +1,23 @@
 import { BLANK_BOARD, BLANK_CHAR, DIGITS, SQUARES } from "../constants";
 import { BoardAll } from "../types/board-all";
-import { fillBoard } from "./fill-board";
-import { getCandidates } from "./get-candidates";
-import { getSquareVals } from "./get-square-vals";
+import { fillBoard } from "../libs/fill-board";
+import { getCandidates } from "../libs/get-candidates";
+import { getSquareVals } from "../libs/get-square-vals";
+import { useMemo } from "react";
 
-export const getBoardAll = (
+export const useBoardAll = (
   initBoard: string,
   board: string,
   selected: string
 ) => {
   const cells: BoardAll = {};
-  const initValues = getSquareVals(initBoard);
-  const values = getSquareVals(board);
-  const allCandidates = getCandidates(board) || {};
-  const solution =
-    initBoard === BLANK_BOARD ? BLANK_BOARD : fillBoard(initBoard);
-
+  const initValues = useMemo(() => getSquareVals(initBoard), [initBoard]);
+  const values = useMemo(() => getSquareVals(board), [board]);
+  const allCandidates = useMemo(() => getCandidates(board) || {}, [board]);
+  const solution = useMemo(
+    () => (initBoard === BLANK_BOARD ? BLANK_BOARD : fillBoard(initBoard)),
+    [initBoard]
+  );
   for (let si in SQUARES) {
     const id = SQUARES[si];
     const [row, col] = id.split("");

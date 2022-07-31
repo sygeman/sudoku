@@ -2,10 +2,10 @@ import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { BLANK_BOARD, BLANK_CHAR, DIGITS, ROWS, SQUARES } from "../constants";
 import { generateBoard } from "../libs/generate-board";
-import { getBoardAll } from "../libs/get-board-all";
 import { getIncludesCount } from "../libs/get-includes-count";
 import { isProtected } from "../libs/is-protected";
 import { setBoardValue } from "../libs/set-board-value";
+import { useBoardAll } from "./board-all";
 
 export const useSudoku = () => {
   const router = useRouter();
@@ -16,7 +16,7 @@ export const useSudoku = () => {
   const [board, setBoard] = useState(boardFromUrl);
   const [selected, setSelected] = useState(SQUARES[0]);
 
-  const boardAll = getBoardAll(initBoard, board, selected);
+  const boardAll = useBoardAll(initBoard, board, selected);
   const selectedIsProtected = isProtected(initBoard, selected);
   const includesCount = getIncludesCount(board);
 
