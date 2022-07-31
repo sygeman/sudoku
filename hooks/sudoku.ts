@@ -29,6 +29,7 @@ export const useSudoku = () => {
     if (initBoardFromUrl !== BLANK_BOARD) {
       setInitBoard(initBoardFromUrl);
       setBoard(boardFromUrl);
+      setFailures(0);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initBoardFromUrl]);

@@ -44,8 +44,7 @@ export const useKeyboardControl = ({
 
       return onSelect(`${newRow}${newCol}`);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selected]
+    [selected, onValue, onSelect]
   );
 
   useEffect(() => {
