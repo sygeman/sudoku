@@ -1,12 +1,6 @@
 import clsx from "clsx";
 
-export const CellCandidates = ({
-  candidates,
-  selected,
-  highlightLine,
-  highlightSame,
-  onClick,
-}: {
+export const CellCandidates = (props: {
   candidates: string;
   selected?: boolean;
   highlightLine?: boolean;
@@ -14,21 +8,21 @@ export const CellCandidates = ({
   onClick?: () => void;
 }) => (
   <button
-    className={clsx(
+    class={clsx(
       "flex flex-wrap justify-center items-center h-8 w-8 cursor-pointer rounded-sm",
       "font-medium text-white/30",
-      selected
+      props.selected
         ? "bg-indigo-900"
-        : highlightSame
+        : props.highlightSame
         ? "bg-transparent"
-        : highlightLine
+        : props.highlightLine
         ? "bg-slate-700/60"
         : "bg-slate-800/70"
     )}
-    onClick={() => onClick && onClick()}
+    onClick={() => props.onClick && props.onClick()}
   >
-    <div className="leading-[0.625rem] text-[0.688rem] scale-90">
-      {candidates}
+    <div class="leading-[0.625rem] text-[0.688rem] scale-90">
+      {props.candidates}
     </div>
   </button>
 );

@@ -1,25 +1,21 @@
 import clsx from "clsx";
-import React from "react";
+import { JSX } from "solid-js";
 
-export const ControlButton = ({
-  children,
-  disabled,
-  onClick,
-}: {
-  children: React.ReactNode;
+export const ControlButton = (props: {
+  children: JSX.Element;
   disabled?: boolean;
   onClick?: () => void;
 }) => (
   <button
-    className={clsx(
+    class={clsx(
       "h-8 w-8 flex items-center justify-center rounded relative transition-colors delay-75",
       "bg-slate-800/50 text-gray-400 font-medium text-xl",
       "hover:bg-slate-700",
       "disabled:opacity-20"
     )}
-    disabled={disabled}
-    onClick={onClick}
+    disabled={props.disabled}
+    onClick={props.onClick}
   >
-    {children}
+    {props.children}
   </button>
 );

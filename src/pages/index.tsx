@@ -1,22 +1,20 @@
-import type { NextPage } from "next";
-import Head from "next/head";
+import { useNavigate } from "@solidjs/router";
 import { HeaderButton } from "../components/header-button";
 import { Layout } from "../components/layout";
 import { DIFFICULTY } from "../constants";
-import { useSudoku } from "../hooks/sudoku";
+import { generateBoard } from "../libs/generate-board";
 
-const Home: NextPage = () => {
-  const { generate } = useSudoku();
+const IndexPage = () => {
+  const navigate = useNavigate();
+  const generate = (difficulty = DIFFICULTY.easy) => {
+    navigate(`/game/${generateBoard(difficulty)}`);
+  };
 
   return (
     <Layout>
-      <Head>
-        <title>Sudoku</title>
-        <link rel="icon" type="image/ico" href="/favicon.ico" />
-      </Head>
-      <div className="scale-150 flex flex-col items-center">
-        <div className="uppercase font-medium text-gray-400">New game</div>
-        <div className="flex gap-1 mt-2">
+      <div class="scale-150 flex flex-col items-center">
+        <div class="uppercase font-medium text-gray-400">New game</div>
+        <div class="flex gap-1 mt-2">
           <HeaderButton onClick={() => generate(DIFFICULTY.easy)}>
             Easy
           </HeaderButton>
@@ -32,4 +30,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default IndexPage;
