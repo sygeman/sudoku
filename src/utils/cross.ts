@@ -1,2 +1,2 @@
 export const cross = (a: string, b: string): string[] =>
-  a.split('').map((curr, index) => curr + b[index]);
+  a.split('').map((ai) => b.split('').map(bi => ai+bi)).flat();
