@@ -1,9 +1,1 @@
-export function cross(a: string, b: string) {
-  let result = [];
-  for (let ai = 0; ai < a.length; ai++) {
-    for (let bi = 0; bi < b.length; bi++) {
-      result.push(a[ai] + b[bi]);
-    }
-  }
-  return result;
-}
+export const cross = (a: string, b: string): string[] => a.split('').map((curr, index) => curr + b[index]);
