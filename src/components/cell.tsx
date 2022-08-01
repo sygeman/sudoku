@@ -1,14 +1,6 @@
 import clsx from "clsx";
 
-export const Cell = ({
-  value,
-  selected,
-  highlightLine,
-  highlightSame,
-  highlightError,
-  notProtected,
-  onClick,
-}: {
+export const Cell = (props: {
   value: string;
   selected?: boolean;
   highlightLine?: boolean;
@@ -18,22 +10,24 @@ export const Cell = ({
   onClick?: () => void;
 }) => (
   <button
-    className={clsx(
+    class={clsx(
       "flex justify-center items-center h-8 w-8 cursor-pointer rounded-sm",
       "font-medium text-xl text-white/50 outline-none",
-      notProtected && !selected ? "text-indigo-400" : "text-white/50",
-      highlightError
+      props.notProtected && !props.selected
+        ? "text-indigo-400"
+        : "text-white/50",
+      props.highlightError
         ? "bg-red-600/20"
-        : selected
+        : props.selected
         ? "bg-indigo-900"
-        : highlightSame
+        : props.highlightSame
         ? "bg-transparent"
-        : highlightLine
+        : props.highlightLine
         ? "bg-slate-700/60"
         : "bg-slate-800/70"
     )}
-    onClick={() => onClick && onClick()}
+    onClick={() => props.onClick && props.onClick()}
   >
-    {value}
+    {props.value}
   </button>
 );
