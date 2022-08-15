@@ -1,7 +1,8 @@
 import { lazy } from "solid-js";
 import { render } from "solid-js/web";
 import { Routes, Route, Router } from "@solidjs/router";
-import "./index.css";
+import "@unocss/reset/tailwind.css";
+import "uno.css";
 
 const IndexPage = lazy(() => import("./pages/index"));
 const GamePage = lazy(() => import("./pages/game"));
