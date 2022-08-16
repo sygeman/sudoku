@@ -724,6 +724,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@unocss/reset@npm:0.45.7":
+  version: 0.45.7
+  resolution: "@unocss/reset@npm:0.45.7"
+  checksum: 836f63fa9fcd62c734dabc42da3bbe95eb8cfe1970d2ec81aa087f01f099af198d14bd2780efe499349480d255343253cd17b587a9b95844b8bdc3b554c8f067
+  languageName: node
+  linkType: hard
+
 "@unocss/scope@npm:0.45.6":
   version: 0.45.6
   resolution: "@unocss/scope@npm:0.45.6"
@@ -2817,7 +2824,7 @@ __metadata:
   dependencies:
     "@solid-primitives/keyboard": 1.0.1
     "@solidjs/router": 0.4.2
-    "@unocss/reset": 0.45.6
+    "@unocss/reset": 0.45.7
     clsx: 1.2.1
     solid-js: 1.4.8
     typescript: 4.7.4
