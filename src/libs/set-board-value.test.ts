@@ -1,3 +1,4 @@
+import { expect, test } from "vitest";
 import { BLANK_BOARD } from "../constants";
 import { setBoardValue } from "./set-board-value";
 

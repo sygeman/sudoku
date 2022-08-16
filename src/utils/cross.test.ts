@@ -1,3 +1,5 @@
+import { expect, test } from "vitest";
+
 import { cross } from "./cross";
 
 test("cross", () => {
