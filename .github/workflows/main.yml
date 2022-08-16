@@ -1,4 +1,4 @@
-name: Compressed Size
+name: Main
 
 on:
   push:
@@ -6,12 +6,6 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: preactjs/compressed-size-action@v2
   test:
     runs-on: ubuntu-latest
 
