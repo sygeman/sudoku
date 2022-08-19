@@ -3523,13 +3523,45 @@ __metadata:
     solid-js: 1.4.8
     typescript: 4.7.4
     unocss: 0.45.8
-    vite: 3.0.8
+    vite: 3.0.9
     vite-plugin-solid: 2.3.0
     vitest: 0.22.1
   languageName: unknown
   linkType: soft
 
-"vite@npm:3.0.8, vite@npm:^2.9.12 || ^3.0.0-0":
+"vite@npm:3.0.9":
+  version: 3.0.9
+  resolution: "vite@npm:3.0.9"
+  dependencies:
+    esbuild: ^0.14.47
+    fsevents: ~2.3.2
+    postcss: ^8.4.16
+    resolve: ^1.22.1
+    rollup: ">=2.75.6 <2.77.0 || ~2.77.0"
+  peerDependencies:
+    less: "*"
+    sass: "*"
+    stylus: "*"
+    terser: ^5.4.0
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  peerDependenciesMeta:
+    less:
+      optional: true
+    sass:
+      optional: true
+    stylus:
+      optional: true
+    terser:
+      optional: true
+  bin:
+    vite: bin/vite.js
+  checksum: 6341aa43579ae45f8a383bdc0c5041dea3dff98f14e0a546d6d884a864134b00082246a28d1de8adff0ce0dd92b468c7ade8f972ffe1ed97258671d63e0f16f7
+  languageName: node
+  linkType: hard
+
+"vite@npm:^2.9.12 || ^3.0.0-0":
   version: 3.0.8
   resolution: "vite@npm:3.0.8"
   dependencies:
