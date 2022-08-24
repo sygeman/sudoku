@@ -27,5 +27,5 @@
     "clsx": "1.2.1",
     "solid-js": "1.4.8"
   },
-  "packageManager": "yarn@3.2.2"
+  "packageManager": "yarn@3.2.3"
 }
