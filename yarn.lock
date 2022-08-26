@@ -556,47 +556,47 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@solid-primitives/event-listener@npm:^2.2.1":
-  version: 2.2.1
-  resolution: "@solid-primitives/event-listener@npm:2.2.1"
+"@solid-primitives/event-listener@npm:^2.2.2":
+  version: 2.2.2
+  resolution: "@solid-primitives/event-listener@npm:2.2.2"
   dependencies:
-    "@solid-primitives/utils": ^3.0.0
+    "@solid-primitives/utils": ^3.0.2
   peerDependencies:
     solid-js: ^1.3.1
-  checksum: 19c062354f3a090636358e641c0a1547125fe32c1fcac3778cf5a1c36b286836a5da7ebf9f25a15c939251b14cf291c10536df30c1b7a2b2ffe0720c301b044a
+  checksum: 53317aa90ca067c661a9d8518fe38f8eaf4c5d1f0233e7d13e04e83016967c6a5b9be101a12f8a4149401aafcb33d1a01fb4e3c1756dd9cf391280a815d7deee
   languageName: node
   linkType: hard
 
-"@solid-primitives/keyboard@npm:1.0.1":
-  version: 1.0.1
-  resolution: "@solid-primitives/keyboard@npm:1.0.1"
+"@solid-primitives/keyboard@npm:1.0.2":
+  version: 1.0.2
+  resolution: "@solid-primitives/keyboard@npm:1.0.2"
   dependencies:
-    "@solid-primitives/event-listener": ^2.2.1
-    "@solid-primitives/rootless": ^1.1.2
-    "@solid-primitives/utils": ^3.0.0
+    "@solid-primitives/event-listener": ^2.2.2
+    "@solid-primitives/rootless": ^1.1.3
+    "@solid-primitives/utils": ^3.0.2
   peerDependencies:
     solid-js: ^1.4.0
-  checksum: e5efd9440ff80350e79064ddb709830bca9e6c7bb4501b98334c1f92662563e0096a85dbf151ad76a933f2a779920c9b13392d216cd069ee6665a96ed4e2f431
+  checksum: e6cad2536f0537d9a2e6dafe90a1a878d470dc186fbba59cc1f03e57cc51ab57d88f8564f7194d9dad544b1510372a5173e28c78b3f2e438090a5d088fd33735
   languageName: node
   linkType: hard
 
-"@solid-primitives/rootless@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "@solid-primitives/rootless@npm:1.1.2"
+"@solid-primitives/rootless@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "@solid-primitives/rootless@npm:1.1.3"
   dependencies:
-    "@solid-primitives/utils": ^3.0.0
+    "@solid-primitives/utils": ^3.0.2
   peerDependencies:
     solid-js: ^1.3.1
-  checksum: b94ef2db487980fe1c9cc7de8502ae4f8e4434b598f4d889dba8c4c1b80563f8324932122061e49cacf7de2196066e53a6834dfc289b6115349369dd12ea7ff4
+  checksum: ea6ec3af85ce5f1da6b9ba5f1eb7283f4241e9c975c099833ea818ef92ec163dedc14532ceb41a72916d7984b1f6ff131adde0ea4b52e6e9c26c22f4f9f1832b
   languageName: node
   linkType: hard
 
-"@solid-primitives/utils@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@solid-primitives/utils@npm:3.0.0"
+"@solid-primitives/utils@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "@solid-primitives/utils@npm:3.0.2"
   peerDependencies:
     solid-js: ^1.4.1
-  checksum: f7e6fa122fe27b4bc3e1bbd03659170c555ff9b05033c08379ad6a9bfb1814a5d29889bdc2d7fcd321d09118de70679e91815d54c3fd6614375eaf0afd61e8ca
+  checksum: 178175ffa09e6721d2b82b2d160c7a76b6997ae72f2c647ed8e570736522920f03da5c4c194117a70098899b010cfa2c59aa4dc6f7159151b74ef71f142c687a
   languageName: node
   linkType: hard
 
@@ -3514,7 +3514,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "vite-template-solid@workspace:."
   dependencies:
-    "@solid-primitives/keyboard": 1.0.1
+    "@solid-primitives/keyboard": 1.0.2
     "@solidjs/router": 0.4.2
     "@unocss/reset": 0.45.8
     "@vitest/coverage-c8": 0.22.1
