@@ -1,7 +1,6 @@
 import { BLANK_BOARD, BLANK_CHAR, DIGITS, SQUARES } from "../constants";
 import { BoardData } from "../types/board-all";
 import { fillBoard } from "../libs/fill-board";
-import { getCandidates } from "../libs/get-candidates";
 import { getSquareVals } from "../libs/get-square-vals";
 import { Accessor, createMemo } from "solid-js";
 
@@ -12,7 +11,6 @@ export const useBoardData = (
 ) => {
   const initValues = createMemo(() => getSquareVals(initBoard));
   const values = createMemo(() => getSquareVals(board()));
-  const allCandidates = createMemo(() => getCandidates(board()) || {});
   const solution = createMemo(() =>
     initBoard === BLANK_BOARD ? BLANK_BOARD : fillBoard(initBoard)
   );

@@ -14,3 +14,7 @@
 
 - index.css 7.79 KiB / gzip: 2.29 KiB
 - game.js 7.13 KiB / gzip: 2.99 KiB
+
+---
+
+- game.js 7.10 KiB / gzip: 2.98 KiB
