@@ -2,7 +2,6 @@ import clsx from "clsx";
 import { Control } from "./control";
 import { X3Grid } from "./x3-grid";
 import { Cell } from "./cell";
-import { CellCandidates } from "./cell-candidates";
 import { BLANK_BOARD, BLANK_CHAR, ROWS, SQUARES } from "../constants";
 import { HeaderButton } from "./header-button";
 import { createMemo, createSignal } from "solid-js";
@@ -27,7 +26,6 @@ export const Game = () => {
   const { id: initBoard } = useParams();
   const navigate = useNavigate();
 
-  const [debug, setDebug] = createSignal(false);
   const [board, setBoard] = createSignal(initBoard);
   const [selected, select] = createSignal(SQUARES[0]);
   const [failures, setFailures] = createSignal(0);
@@ -73,7 +71,7 @@ export const Game = () => {
       <div class={clsx("relative", soloved() && "blur-sm")}>
         <div class="relative">
           <div class="flex h-8 w-full items-end py-1 whitespace-nowrap">
-            <div class="w-full" onClick={() => setDebug((prev) => !prev)}>
+            <div class="w-full">
               <div class="px-1 max-w-fit uppercase text-sm font-medium bg-indigo-900 text-white/50 rounded-sm">
                 Sudoku
               </div>
@@ -105,20 +103,6 @@ export const Game = () => {
                   const cellHighlightSame = cellData.selectedSame;
                   const value = cellData.value;
 
-                  if (debug() && value === BLANK_CHAR) {
-                    const candidates = cellData.candidates.join(" ");
-
-                    return (
-                      <CellCandidates
-                        candidates={candidates}
-                        selected={cellSelected}
-                        highlightLine={cellHighlightLine}
-                        highlightSame={cellHighlightSame}
-                        onClick={() => select(id)}
-                      />
-                    );
-                  }
-
                   return (
                     <Cell
                       value={value === BLANK_CHAR ? "" : value}
@@ -137,7 +121,6 @@ export const Game = () => {
 
           <div class="mt-4">
             <Control
-              debug={debug()}
               includesCount={includesCount()}
               selectedIsProtected={selectedIsProtected()}
               setValueSelected={setValueSelected}

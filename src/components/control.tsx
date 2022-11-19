@@ -6,7 +6,6 @@ import { ControlButton } from "./control-button";
 const x9Array = [...new Array(9)];
 
 export const Control: Component<{
-  debug: boolean;
   includesCount: {
     [key: string]: number;
   };
@@ -21,14 +20,7 @@ export const Control: Component<{
           disabled={props.includesCount[index + 1] === 9}
           onClick={() => props.setValueSelected(`${index + 1}`)}
         >
-          <>
-            {index + 1}
-            {props.debug && (
-              <span class="absolute top-0 right-0 text-xs scale-75 px-0.5 opacity-50">
-                {`${9 - props.includesCount[index + 1]}`}
-              </span>
-            )}
-          </>
+          {index + 1}
         </ControlButton>
       ))}
     </div>

@@ -26,7 +26,6 @@ export const useBoardData = (
       const initValue = initValues()[id];
       const value = values()[id];
       const [selectedRow, selectedCol] = selected().split("");
-      const candidates = (allCandidates()[id] || "").split("");
       const index = SQUARES.findIndex((v) => v === id);
       const isError =
         solution()[index] !== BLANK_CHAR &&
@@ -42,7 +41,6 @@ export const useBoardData = (
         selectedSame: DIGITS.includes(value) && value === values()[selected()],
         protected: initValue !== BLANK_CHAR,
         error: isError,
-        candidates,
       };
     }
 

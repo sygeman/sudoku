@@ -7,7 +7,6 @@ export type Cell = {
   selectedLine: boolean;
   selectedSame: boolean;
   error?: boolean;
-  candidates: string[];
 };
 
 export type BoardData = {
