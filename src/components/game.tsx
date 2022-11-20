@@ -1,11 +1,11 @@
+import { createMemo, createSignal } from "solid-js";
+import { useNavigate, useParams } from "@solidjs/router";
 import { Control } from "./control";
 import { X3Grid } from "./x3-grid";
 import { Cell } from "./cell";
 import { BLANK_BOARD, BLANK_CHAR, ROWS, SQUARES } from "../constants";
 import { HeaderButton } from "./header-button";
-import { createMemo, createSignal } from "solid-js";
 import { DIFFICULTY } from "../constants";
-import { useNavigate, useParams } from "@solidjs/router";
 import { fillBoard } from "../libs/fill-board";
 import { useBoardData } from "../hooks/board-data";
 import { isProtected } from "../libs/is-protected";
@@ -13,6 +13,7 @@ import { getIncludesCount } from "../libs/get-includes-count";
 import { setBoardValue } from "../libs/set-board-value";
 import { validateBoard } from "../libs/validate-board";
 import { shortcut } from "../shortcut";
+import { End } from "./end";
 
 export const getDifficulty = (initBoard: string) => {
   const difficulty = initBoard.split("").filter((c) => c === BLANK_CHAR).length;
@@ -133,23 +134,7 @@ export const Game = () => {
         </div>
       </div>
       {soloved() && (
-        <div class="absolute inset-0 w-full h-full flex items-center">
-          <div
-            classList={{
-              "flex flex-col justify-center items-center": true,
-              "w-full py-4 bg-indigo-900/80": true,
-            }}
-          >
-            <div class="font-medium">Awesome!</div>
-            <div class="font-medium text-xs text-gray-400">
-              Failures: {failures}
-            </div>
-            <div class="flex gap-1 mt-2">
-              <HeaderButton onClick={newGame}>New Game</HeaderButton>
-              <HeaderButton onClick={reset}>Again</HeaderButton>
-            </div>
-          </div>
-        </div>
+        <End failures={failures()} newGame={newGame} reset={reset} />
       )}
     </div>
   );
