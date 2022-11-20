@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import { Component } from "solid-js";
 import { BLANK_CHAR } from "../constants";
 import { ControlButton } from "./control-button";
@@ -16,7 +15,6 @@ export const Control: Component<{
     <div class="flex flex-wrap gap-1 w-full justify-center">
       {x9Array.map((_value, index) => (
         <ControlButton
-          // key={index}
           disabled={props.includesCount[index + 1] === 9}
           onClick={() => props.setValueSelected(`${index + 1}`)}
         >
@@ -26,11 +24,11 @@ export const Control: Component<{
     </div>
     <div class="mt-2 flex flex-wrap gap-1 w-full justify-center">
       <button
-        class={clsx(
-          "py-1 px-2 rounded",
-          "bg-slate-800/50 text-gray-400 font-medium uppercase text-sm",
-          "disabled:opacity-20"
-        )}
+        classList={{
+          "py-1 px-2 rounded": true,
+          "bg-slate-800/50 text-gray-400 font-medium uppercase text-sm": true,
+          "disabled:opacity-20": true,
+        }}
         disabled={props.selectedIsProtected}
         onClick={() => props.setValueSelected(BLANK_CHAR)}
       >

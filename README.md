@@ -4,17 +4,8 @@
 
 - favicon.ico 4.35 KiB
 - index.html 0.58 KiB
-- index.css 8.80 KiB / gzip: 2.39 KiB
-- index.js 23.88 KiB / gzip: 9.73 KiB
+- index.css 8.80 KiB / gzip: 2.39 KiB (7.79 KiB / gzip: 2.29 KiB)
+- index.js 23.88 KiB / gzip: 9.73 KiB (23.81 KiB / gzip: 9.69 KiB)
 - index.js 1.12 KiB / gzip: 0.65 KiB
-- fill-board.js 3.85 KiB / gzip: 1.83 KiB
-- game.js 8.07 KiB / gzip: 3.24 KiB
-
----
-
-- index.css 7.79 KiB / gzip: 2.29 KiB
-- game.js 7.13 KiB / gzip: 2.99 KiB
-
----
-
-- game.js 7.10 KiB / gzip: 2.98 KiB
+- fill-board.js 3.85 KiB / gzip: 1.83 KiB (3.43 KiB / gzip: 1.65 KiB)
+- game.js 8.07 KiB / gzip: 3.24 KiB (7.00 KiB / gzip: 2.91 KiB

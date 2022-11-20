@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import { Control } from "./control";
 import { X3Grid } from "./x3-grid";
 import { Cell } from "./cell";
@@ -68,7 +67,12 @@ export const Game = () => {
 
   return (
     <div class="relative w-80 md:scale-150">
-      <div class={clsx("relative", soloved() && "blur-sm")}>
+      <div
+        classList={{
+          relative: true,
+          "blur-sm": soloved(),
+        }}
+      >
         <div class="relative">
           <div class="flex h-8 w-full items-end py-1 whitespace-nowrap">
             <div class="w-full">
@@ -131,10 +135,10 @@ export const Game = () => {
       {soloved() && (
         <div class="absolute inset-0 w-full h-full flex items-center">
           <div
-            class={clsx(
-              "w-full py-4 flex flex-col justify-center items-center",
-              "bg-indigo-900/80 "
-            )}
+            classList={{
+              "flex flex-col justify-center items-center": true,
+              "w-full py-4 bg-indigo-900/80": true,
+            }}
           >
             <div class="font-medium">Awesome!</div>
             <div class="font-medium text-xs text-gray-400">

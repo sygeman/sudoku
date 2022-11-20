@@ -5,7 +5,6 @@ specifiers:
   '@solidjs/router': 0.5.0
   '@unocss/reset': 0.46.5
   '@vitest/coverage-c8': 0.25.2
-  clsx: 1.2.1
   jsdom: 20.0.2
   solid-js: 1.6.2
   typescript: 4.9.3
@@ -17,7 +16,6 @@ specifiers:
 dependencies:
   '@solid-primitives/keyboard': 1.0.5_solid-js@1.6.2
   '@solidjs/router': 0.5.0_solid-js@1.6.2
-  clsx: 1.2.1
   solid-js: 1.6.2
 
 devDependencies:
@@ -931,11 +929,6 @@ packages:
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
     dev: true
-
-  /clsx/1.2.1:
-    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
-    engines: {node: '>=6'}
-    dev: false
 
   /color-convert/1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}

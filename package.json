@@ -24,7 +24,6 @@
   "dependencies": {
     "@solid-primitives/keyboard": "1.0.5",
     "@solidjs/router": "0.5.0",
-    "clsx": "1.2.1",
     "solid-js": "1.6.2"
   },
   "packageManager": "pnpm@7.16.0"
