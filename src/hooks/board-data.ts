@@ -5,14 +5,14 @@ import { getSquareVals } from "../libs/get-square-vals";
 import { Accessor, createMemo } from "solid-js";
 
 export const useBoardData = (
-  initBoard: string,
+  initBoard: Accessor<string>,
   board: Accessor<string>,
   selected: Accessor<string>
 ) => {
-  const initValues = createMemo(() => getSquareVals(initBoard));
+  const initValues = createMemo(() => getSquareVals(initBoard()));
   const values = createMemo(() => getSquareVals(board()));
   const solution = createMemo(() =>
-    initBoard === BLANK_BOARD ? BLANK_BOARD : fillBoard(initBoard)
+    initBoard() === BLANK_BOARD ? BLANK_BOARD : fillBoard(initBoard())
   );
 
   const boardData: Accessor<BoardData> = createMemo(() => {

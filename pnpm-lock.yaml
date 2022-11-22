@@ -2,10 +2,9 @@ lockfileVersion: 5.4
 
 specifiers:
   '@solid-primitives/keyboard': 1.0.5
-  '@solidjs/router': 0.5.0
   '@unocss/reset': 0.46.5
   '@vitest/coverage-c8': 0.25.2
-  jsdom: 20.0.2
+  jsdom: 20.0.3
   solid-js: 1.6.2
   typescript: 4.9.3
   unocss: 0.46.5
@@ -15,18 +14,17 @@ specifiers:
 
 dependencies:
   '@solid-primitives/keyboard': 1.0.5_solid-js@1.6.2
-  '@solidjs/router': 0.5.0_solid-js@1.6.2
   solid-js: 1.6.2
 
 devDependencies:
   '@unocss/reset': 0.46.5
-  '@vitest/coverage-c8': 0.25.2_jsdom@20.0.2
-  jsdom: 20.0.2
+  '@vitest/coverage-c8': 0.25.2_jsdom@20.0.3
+  jsdom: 20.0.3
   typescript: 4.9.3
   unocss: 0.46.5_vite@3.2.4
   vite: 3.2.4
   vite-plugin-solid: 2.4.0_solid-js@1.6.2+vite@3.2.4
-  vitest: 0.25.2_jsdom@20.0.2
+  vitest: 0.25.2_jsdom@20.0.3
 
 packages:
 
@@ -512,14 +510,6 @@ packages:
       solid-js: 1.6.2
     dev: false
 
-  /@solidjs/router/0.5.0_solid-js@1.6.2:
-    resolution: {integrity: sha512-rNR07l21tWWDVmCbaapggB89rEX7jlM2XChpTLqEGEnj46LzVZ8zgvjcF6NNKScByAlLpoQUkVIjB2KHpcMi+w==}
-    peerDependencies:
-      solid-js: ^1.5.3
-    dependencies:
-      solid-js: 1.6.2
-    dev: false
-
   /@tootallnate/once/2.0.0:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
     engines: {node: '>= 10'}
@@ -706,11 +696,11 @@ packages:
       - rollup
     dev: true
 
-  /@vitest/coverage-c8/0.25.2_jsdom@20.0.2:
+  /@vitest/coverage-c8/0.25.2_jsdom@20.0.3:
     resolution: {integrity: sha512-qKsiUJh3bjbB5Q229CbxEWCqiDBwvIrcZ9OOuQdMEC0pce3/LlTUK3+K3hd7WqAYEbbiqXfC5MVMKHZkV82PgA==}
     dependencies:
       c8: 7.12.0
-      vitest: 0.25.2_jsdom@20.0.2
+      vitest: 0.25.2_jsdom@20.0.3
     transitivePeerDependencies:
       - '@edge-runtime/vm'
       - '@vitest/browser'
@@ -1628,8 +1618,8 @@ packages:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
     dev: true
 
-  /jsdom/20.0.2:
-    resolution: {integrity: sha512-AHWa+QO/cgRg4N+DsmHg1Y7xnz+8KU3EflM0LVDTdmrYOc1WWTSkOjtpUveQH+1Bqd5rtcVnb/DuxV/UjDO4rA==}
+  /jsdom/20.0.3:
+    resolution: {integrity: sha512-SYhBvTh89tTfCD/CRdSOm13mOBa42iTaTyfyEWBdKcGdPxPtLFBXuHR8XHb33YNYaP+lLbmSvBTsnoesCNJEsQ==}
     engines: {node: '>=14'}
     peerDependencies:
       canvas: ^2.5.0
@@ -1652,11 +1642,11 @@ packages:
       https-proxy-agent: 5.0.1
       is-potential-custom-element-name: 1.0.1
       nwsapi: 2.2.2
-      parse5: 7.1.1
+      parse5: 7.1.2
       saxes: 6.0.0
       symbol-tree: 3.2.4
       tough-cookie: 4.1.2
-      w3c-xmlserializer: 3.0.0
+      w3c-xmlserializer: 4.0.0
       webidl-conversions: 7.0.0
       whatwg-encoding: 2.0.0
       whatwg-mimetype: 3.0.0
@@ -1863,8 +1853,8 @@ packages:
       p-limit: 3.1.0
     dev: true
 
-  /parse5/7.1.1:
-    resolution: {integrity: sha512-kwpuwzB+px5WUg9pyK0IcK/shltJN5/OVhQagxhCQNtT9Y9QRZqNY2e1cmbu/paRh5LMnz/oVTVLBpjFmMZhSg==}
+  /parse5/7.1.2:
+    resolution: {integrity: sha512-Czj1WaSVpaoj0wbhMzLmWD69anp2WH7FXMB9n1Sy8/ZFF9jolSQVMu1Ij5WIyGmcBmhk7EOndpO4mIpihVqAXw==}
     dependencies:
       entities: 4.4.0
     dev: true
@@ -2372,7 +2362,7 @@ packages:
       vite: 3.2.4
     dev: true
 
-  /vitest/0.25.2_jsdom@20.0.2:
+  /vitest/0.25.2_jsdom@20.0.3:
     resolution: {integrity: sha512-qqkzfzglEFbQY7IGkgSJkdOhoqHjwAao/OrphnHboeYHC5JzsVFoLCaB2lnAy8krhj7sbrFTVRApzpkTOeuDWQ==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
@@ -2401,7 +2391,7 @@ packages:
       acorn-walk: 8.2.0
       chai: 4.3.7
       debug: 4.3.4
-      jsdom: 20.0.2
+      jsdom: 20.0.3
       local-pkg: 0.4.2
       source-map: 0.6.1
       strip-literal: 0.4.2
@@ -2418,9 +2408,9 @@ packages:
       - terser
     dev: true
 
-  /w3c-xmlserializer/3.0.0:
-    resolution: {integrity: sha512-3WFqGEgSXIyGhOmAFtlicJNMjEps8b1MG31NCA0/vOF9+nKMUW1ckhi9cnNHmf88Rzw5V+dwIwsm2C7X8k9aQg==}
-    engines: {node: '>=12'}
+  /w3c-xmlserializer/4.0.0:
+    resolution: {integrity: sha512-d+BFHzbiCx6zGfz0HyQ6Rg69w9k19nviJspaj4yNscGjrHu94sVP+aRm75yEbCh+r2/yR+7q6hux9LVtbuTGBw==}
+    engines: {node: '>=14'}
     dependencies:
       xml-name-validator: 4.0.0
     dev: true
