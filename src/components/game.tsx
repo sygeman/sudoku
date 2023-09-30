@@ -102,8 +102,8 @@ export const Game = () => {
               </div>
 
               <div class="flex justify-between font-medium text-xs py-0.5 text-gray-400">
-                <div>{difficultyLabel}</div>
-                <div>Failures: {failures}</div>
+                <div>{difficultyLabel()}</div>
+                <div>Failures: {failures()}</div>
               </div>
 
               <X3Grid

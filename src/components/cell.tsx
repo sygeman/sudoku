@@ -24,7 +24,7 @@ export const Cell = (props: {
         ? "bg-slate-700/60"
         : "bg-slate-800/70"]: true,
     }}
-    onClick={() => props.onClick && props.onClick()}
+    onClick={() => props.onClick?.()}
   >
     {props.value}
   </button>

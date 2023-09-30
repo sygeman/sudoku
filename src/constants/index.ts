@@ -20,3 +20,5 @@ export const DIFFICULTY = {
   medium: 51,
   hard: 56,
 };
+
+export const GITHUB_LINK = "https://github.com/sygeman/sudoku";

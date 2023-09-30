@@ -1,10 +1,8 @@
 import { JSX } from "solid-js";
 
-export const ControlButton = (props: {
-  children: JSX.Element;
-  disabled?: boolean;
-  onClick?: () => void;
-}) => (
+export const ControlButton = (
+  props: JSX.ButtonHTMLAttributes<HTMLButtonElement>
+) => (
   <button
     classList={{
       "h-8 w-8 flex items-center justify-center rounded relative": true,
@@ -13,9 +11,6 @@ export const ControlButton = (props: {
       "hover:bg-slate-700": true,
       "disabled:opacity-20": true,
     }}
-    disabled={props.disabled}
-    onClick={props.onClick}
-  >
-    {props.children}
-  </button>
+    {...props}
+  />
 );
