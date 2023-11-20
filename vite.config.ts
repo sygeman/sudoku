@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
 import solidPlugin from "vite-plugin-solid";
-import Unocss from "unocss/vite";
-import { presetAttributify, presetUno } from "unocss";
+import UnoCSS from "unocss/vite";
 
 export default defineConfig({
   test: {
@@ -18,12 +17,7 @@ export default defineConfig({
   resolve: {
     conditions: ["development", "browser"],
   },
-  plugins: [
-    solidPlugin(),
-    Unocss({
-      presets: [presetAttributify(), presetUno()],
-    }),
-  ],
+  plugins: [UnoCSS(), solidPlugin()],
   server: {
     port: 3000,
   },

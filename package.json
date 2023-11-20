@@ -13,17 +13,17 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@unocss/reset": "0.56.4",
+    "@unocss/reset": "0.57.6",
     "@vitest/coverage-c8": "0.33.0",
     "jsdom": "22.1.0",
-    "typescript": "5.2.2",
-    "unocss": "0.56.4",
-    "vite": "4.4.9",
-    "vite-plugin-solid": "2.7.0",
-    "vitest": "0.34.5"
+    "typescript": "5.3.2",
+    "unocss": "0.57.6",
+    "vite": "4.5.0",
+    "vite-plugin-solid": "2.7.2",
+    "vitest": "0.34.6"
   },
   "dependencies": {
     "@solid-primitives/keyboard": "1.2.5",
-    "solid-js": "1.7.12"
+    "solid-js": "1.8.5"
   }
 }
